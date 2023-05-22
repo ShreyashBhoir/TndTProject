@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Review_T")
+@Table(name="Reviews")
 public class Review {
 
 	//REVIEW DATA

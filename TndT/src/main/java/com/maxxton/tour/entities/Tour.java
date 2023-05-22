@@ -1,17 +1,24 @@
 package com.maxxton.tour.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Tour_T")
+@Table(name="Tours")
 public class Tour {
 	
 	//data fields
+	
+	@Id
+	@GeneratedValue
 	private int tourid;
 	private String name;
 	private String location;
@@ -26,9 +33,11 @@ public class Tour {
 	
 	//review entity mapping
 	@OneToMany(mappedBy = "reviewid" ,cascade = CascadeType.REMOVE)
-	private Review review;
+	private List<Review> review;
 
-	
+	@OneToOne(mappedBy = "tour")
+	private Booking booking;
+
 
 	//getters and setters
 	public int getTourid() {
@@ -119,15 +128,19 @@ public class Tour {
 		this.imageurl = imageurl;
 	}
 
-	public Review getReview() {
+
+
+	public List<Review> getReview() {
 		return review;
 	}
 
-	public void setReview(Review review) {
+	public void setReview(List<Review> review) {
 		this.review = review;
 	}
 
 	//ToString
+
+	
 	@Override
 	public String toString() {
 		return "Tour [tourid=" + tourid + ", name=" + name + ", location=" + location + ", duration=" + duration
@@ -135,8 +148,7 @@ public class Tour {
 				+ ", description=" + description + ", begindate=" + begindate + ", imageurl=" + imageurl + ", review="
 				+ review + "]";
 	}
-	
-	
+
 	
 	
 

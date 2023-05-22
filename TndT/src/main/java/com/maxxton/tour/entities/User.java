@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -20,7 +21,7 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 import java.util.*;
 
 @Entity
-@Table(name = "user_T")
+@Table(name = "users")
 public class User {
 
 	@Id
@@ -35,7 +36,7 @@ public class User {
 	private String password;
 	private Boolean isActive;
 	
-	@Column(columnDefinition = "default 'USER'")
+	@Column(columnDefinition = "varchar(255) default 'USER'")
 	private String roles;
 	
 	private GregorianCalendar changedPasswordDate;
@@ -46,6 +47,8 @@ public class User {
 	private List<Review> review;
 
 
+	@OneToOne(mappedBy = "user")
+	private Booking booking;
 	public int getUserId() {
 		return userId;
 	}

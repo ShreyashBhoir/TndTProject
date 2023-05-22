@@ -3,26 +3,43 @@ package com.maxxton.tour.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Booking_T")
+@Table(name="Bookings")
 public class Booking {
 	
 	//data fields
+	@Id
+	@GeneratedValue
+	private int bookingid;
 	private Date bookingdate;
 	private int groupsize;
 	private double price;
 	
 	//tour and user mapping
-	
+	@OneToOne
+	@JoinColumn(name="tourid")
 	private Tour tour;
+	
+	@OneToOne
+	@JoinColumn(name="userId")
 	private User user;
 	
 	//getters and setters
 	public Date getBookingdate() {
 		return bookingdate;
+	}
+	public int getBookingid() {
+		return bookingid;
+	}
+	public void setBookingid(int bookingid) {
+		this.bookingid = bookingid;
 	}
 	public void setBookingdate(Date bookingdate) {
 		this.bookingdate = bookingdate;
