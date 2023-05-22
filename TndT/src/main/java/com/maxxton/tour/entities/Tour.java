@@ -3,8 +3,12 @@ package com.maxxton.tour.entities;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Tour_T")
 public class Tour {
 	
 	//data fields
