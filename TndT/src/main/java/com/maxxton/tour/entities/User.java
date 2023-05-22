@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 import java.util.*;
 
 @Entity
@@ -29,6 +34,8 @@ public class User {
 	
 	private String password;
 	private Boolean isActive;
+	
+	@Column(columnDefinition = "default 'USER'")
 	private String roles;
 	
 	private GregorianCalendar changedPasswordDate;
