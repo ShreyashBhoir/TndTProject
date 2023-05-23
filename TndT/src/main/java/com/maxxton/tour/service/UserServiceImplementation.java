@@ -5,22 +5,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.maxxton.tour.entities.User;
-import com.maxxton.tour.repository.UserRepo;
-
 public class UserServiceImplementation implements UserDetailsService {
 	
-	
-	
 	@Autowired
-	private UserRepo repo;
+	private UserDetails userDetailImpl;
+	
+	
 
 	@Override
-	public UserDetails loadUserByUsername(String userame) throws UsernameNotFoundException {
-		User user =  repo.findByEmail(userame);
-		if (user == null)
-			throw new UsernameNotFoundException("Invalid Credentials");
-		return new UserDetailImplementation(user);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

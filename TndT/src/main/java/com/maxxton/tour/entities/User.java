@@ -39,7 +39,8 @@ public class User {
 	@Column(columnDefinition = "varchar(255) default 'USER'")
 	private String roles;
 	
-
+	private GregorianCalendar changedPasswordDate;
+	
 	
 	@OneToMany
 	@JoinColumn(name="reviewid")
@@ -108,7 +109,14 @@ public class User {
 	}
 
 
+	public GregorianCalendar getChangedPasswordDate() {
+		return changedPasswordDate;
+	}
 
+
+	public void setChangedPasswordDate(GregorianCalendar changedPasswordDate) {
+		this.changedPasswordDate = changedPasswordDate;
+	}
 
 
 	public List<Review> getReview() {

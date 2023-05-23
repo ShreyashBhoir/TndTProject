@@ -18,9 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/user/admin/**").hasRole("ADMIN")
-			.and()
-			.httpBasic();
+		// TODO Auto-generated method stub
+		super.configure(http);
 	}
 	
 	

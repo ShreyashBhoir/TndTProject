@@ -3,7 +3,6 @@ package com.maxxton.tour.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +24,8 @@ public class UserDetailImplementation implements UserDetails {
 		this.userName = user.getUserName();
 		this.password = user.getPassword();
 		this.isActive = user.getIsActive();
-		
-		this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles()));
+		GrantedAuthority auth = new SimpleGrantedAuthority(user.getRoles());
+//		this.authorities = new ArrayList<GrantedAuthority>().add(auth);
 	}
 
 	
