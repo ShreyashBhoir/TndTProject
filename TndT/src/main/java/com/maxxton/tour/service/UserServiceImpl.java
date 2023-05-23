@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		
-		return booking;
+		return booking.get();
 	}
 
 }
