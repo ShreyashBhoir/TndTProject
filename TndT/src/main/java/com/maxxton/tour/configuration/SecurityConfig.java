@@ -4,6 +4,7 @@ import org.hibernate.bytecode.enhance.internal.tracker.NoopCollectionTracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,11 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+	private static final String USER = "USER";
+	private static final String ADMIN = "ADMIN";
+
 	@Autowired
 	private UserDetailsService userDetailService;
 
@@ -32,18 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		provider.setUserDetailsService(userDetailService);
 		provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
 		return provider;
-		
+
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeHttpRequests().antMatchers("/user/admin/**").hasRole("ADMIN")
-		
-			.antMatchers("/user/user/booking/**").hasAnyRole("USER","ADMIN")
-			.and()
-			.httpBasic();
-	}
-	
-	
 
+		http.csrf().disable().authorizeHttpRequests()
+					.antMatchers("/user/user/booking/**").hasAnyRole(USER, ADMIN)
+					.antMatchers(HttpMethod.POST, "/user/user/booking/addBooking").hasAnyRole(ADMIN, USER)
+					.antMatchers(HttpMethod.PUT, "/user/user/booking/updateBooking/bookingdate/**").hasAnyRole(ADMIN, USER)
+					.antMatchers(HttpMethod.PUT, "/user/user/booking/updateBooking/groupsize/**").hasAnyRole(ADMIN, USER)
+					.antMatchers(HttpMethod.DELETE, "/user/user/booking/deleteBooking/**").hasAnyRole(ADMIN, USER)
+					.and()
+					.httpBasic();
+	}
 }
