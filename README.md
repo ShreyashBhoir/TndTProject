@@ -1,4 +1,5 @@
+ Maxxton Training Project:
 # TndTProject
 Tours and Travel Booking Service 
-Made with :
-  Maxxton Training Project(SpringBoot, Oracle, Spring security, JWT, Angular)
+Made using :
+Gradle, Java, SpringBoot, Oracle, Spring security, JWT, Angular
