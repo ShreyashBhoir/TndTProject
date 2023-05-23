@@ -1,21 +1,27 @@
 package com.maxxton.tour.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired
+;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.maxxton.tour.entities.User;
+import com.maxxton.tour.repository.UserRepo;
+
 public class UserServiceImplementation implements UserDetailsService {
 	
 	@Autowired
-	private UserDetails userDetailImpl;
+	private UserRepo repo;
 	
 	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repo.findByEmail(username);
+		if (user== null)
+			throw new UsernameNotFoundException("Invalid Credentials");
+		return new UserDetailImplementation(user);
 	}
 
 }
