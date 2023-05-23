@@ -15,8 +15,8 @@ import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.service.UserService;
 
 @RestController
-@RequestMapping("/user/user")
-public class TourController {
+@RequestMapping("/user/user/booking")
+public class UserController {
   
 	@Autowired
 	private UserService userservice;
