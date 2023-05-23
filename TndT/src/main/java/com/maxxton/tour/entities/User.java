@@ -4,6 +4,7 @@ package com.maxxton.tour.entities;
 
 import java.util.GregorianCalendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,12 +43,11 @@ public class User {
 	private GregorianCalendar changedPasswordDate;
 	
 	
-	@OneToMany
-	@JoinColumn(name="reviewid")
-	private List<Review> review;
+	@OneToOne(mappedBy = "user",cascade = CascadeType.PERSIST)
+	private Review review;
 
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",cascade = CascadeType.PERSIST)
 	private Booking booking;
 	public int getUserId() {
 		return userId;
@@ -119,12 +119,12 @@ public class User {
 	}
 
 
-	public List<Review> getReview() {
+	public Review getReview() {
 		return review;
 	}
 
 
-	public void setReview(List<Review> review) {
+	public void setReview(Review review) {
 		this.review = review;
 	}
 	

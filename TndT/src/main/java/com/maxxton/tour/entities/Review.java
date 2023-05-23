@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +32,9 @@ public class Review {
 	@JoinColumn(name="tourid")
 	private Tour tour;
 
+	@OneToOne
+	@JoinColumn(name="userId")
+	private User user;
 	public int getReviewid() {
 		return reviewid;
 	}

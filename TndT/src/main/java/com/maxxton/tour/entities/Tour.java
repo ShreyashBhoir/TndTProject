@@ -32,7 +32,7 @@ public class Tour {
 	private String imageurl;
 	
 	//review entity mapping
-	@OneToMany(mappedBy = "reviewid" ,cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "tour" ,cascade = CascadeType.REMOVE)
 	private List<Review> review;
 
 	@OneToOne(mappedBy = "tour")
