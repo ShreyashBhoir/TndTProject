@@ -1,9 +1,10 @@
 package com.maxxton.tour.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import com.maxxton.tour.entities.User;
 
-public interface UserRepo extends CrudRepository<User, Integer> {
+public interface UserRepo extends JpaRepository<User, Integer> {
 
 }
