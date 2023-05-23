@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="Tours")
 public class Tour {
@@ -28,7 +30,10 @@ public class Tour {
 	private int rating;
 	private int price;
 	private String description;
+	
+	
 	private Date begindate;
+	
 	private String imageurl;
 	
 	//review entity mapping
@@ -112,12 +117,21 @@ public class Tour {
 		this.description = description;
 	}
 
+
 	public Date getBegindate() {
 		return begindate;
 	}
 
 	public void setBegindate(Date begindate) {
 		this.begindate = begindate;
+	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
 	}
 
 	public String getImageurl() {

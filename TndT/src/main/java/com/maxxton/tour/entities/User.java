@@ -32,12 +32,13 @@ public class User {
 	@Column(name="USER_NAME")
 	private String userName;
 	
+	@Column(unique=true)
 	private String email;
 	
 	private String password;
 	private Boolean isActive;
 	
-	@Column(columnDefinition = "varchar(255) default 'USER'")
+	@Column(columnDefinition = "varchar(255) default 'ROLE_USER'")
 	private String roles;
 	
 	private GregorianCalendar changedPasswordDate;
@@ -126,6 +127,14 @@ public class User {
 
 	public void setReview(Review review) {
 		this.review = review;
+	}
+
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", password=" + password
+				+ ", isActive=" + isActive + ", roles=" + roles + ", changedPasswordDate=" + changedPasswordDate
+				+ ", review=" + review + ", booking=" + booking + "]";
 	}
 	
 	

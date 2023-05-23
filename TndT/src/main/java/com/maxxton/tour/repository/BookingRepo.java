@@ -1,13 +1,21 @@
 package com.maxxton.tour.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.maxxton.tour.entities.Booking;
 
 
 public interface BookingRepo extends JpaRepository<Booking, Integer>{
 
+	/*--------s------*/
+	@Query("SELECT b FROM Booking b WHERE YEAR(b.bookingdate) = ?1")
+	public List<Booking> getBookingsByYear(int year);
 	
+	//@Query("SELECT count(b.bookingid),(b.user.userId) FROM Booking b group by b.tour.tourid,")
+	@Query("SELECT count(b.bookingid),(b.user.userId) FROM Booking b group by b.user.userId")
+	public List<Object[]> getUsersAndBookings();
     
 }
