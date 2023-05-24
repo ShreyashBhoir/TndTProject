@@ -25,7 +25,6 @@ import com.maxxton.tour.repository.UserRepo;
 import com.maxxton.tour.service.TourService;
 import com.maxxton.tour.service.UserService;
 import com.maxxton.tour.service.UserServiceImpl;
-import com.maxxton.tour.service.UserServiceImplementation;
 
 @RestController
 @RequestMapping("/user/admin")

@@ -2,9 +2,6 @@ package com.maxxton.tour.entities;
 
 
 
-import java.util.GregorianCalendar;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,24 +29,36 @@ public class User {
 	@Column(name="USER_NAME")
 	private String userName;
 	
-	@Column(unique=true)
 	private String email;
 	
 	private String password;
 	private Boolean isActive;
 	
-	@Column(columnDefinition = "varchar(255) default 'ROLE_USER'")
+	@Column(columnDefinition = "varchar(255) default 'USER'")
 	private String roles;
 	
 	private GregorianCalendar changedPasswordDate;
 	
 	
-	@OneToOne(mappedBy = "user",cascade = CascadeType.PERSIST)
-	private Review review;
+	@OneToMany
+	@JoinColumn(name="reviewid")
+	private List<Review> review;
 
 
-	@OneToOne(mappedBy = "user",cascade = CascadeType.PERSIST)
-	private Booking booking;
+
+	@OneToMany(mappedBy = "user")
+	private List<Booking> booking;
+	
+	public List<Booking> getBooking() {
+		return booking;
+	}
+
+
+	public void setBooking(List<Booking> booking) {
+		this.booking = booking;
+	}
+
+
 	public int getUserId() {
 		return userId;
 	}
@@ -120,22 +129,16 @@ public class User {
 	}
 
 
-	public Review getReview() {
+	public List<Review> getReview() {
 		return review;
 	}
 
 
-	public void setReview(Review review) {
+	public void setReview(List<Review> review) {
 		this.review = review;
 	}
 
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", email=" + email + ", password=" + password
-				+ ", isActive=" + isActive + ", roles=" + roles + ", changedPasswordDate=" + changedPasswordDate
-				+ ", review=" + review + ", booking=" + booking + "]";
-	}
 	
 	
 	
