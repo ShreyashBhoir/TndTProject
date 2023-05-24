@@ -38,6 +38,9 @@ public class AdminController {
 	@Autowired
 	private TourRepo tourrepo;
 	
+	@Autowired
+	private UserRepo userrepo;
+	
 	//CRUD for Tour by admin
 	//Admin adding new tour
 	@PostMapping("/addTour")
@@ -54,6 +57,7 @@ public class AdminController {
 		return new ResponseEntity<Tour>(tour,HttpStatus.ACCEPTED);
 	}
 	
+	//get all tours
 	@GetMapping("/getTours")
 	public  ResponseEntity<List<Tour>> getAllTours()
 	{
@@ -61,7 +65,7 @@ public class AdminController {
 		return  new ResponseEntity<List<Tour>>(tours, HttpStatus.ACCEPTED);
 	}
 	
-	
+	//get tour by id
 	@GetMapping("/getTourById/{id}")
 	public  ResponseEntity<Tour>getAllTours(@PathVariable int id)
 	{
@@ -69,12 +73,39 @@ public class AdminController {
 		return  new ResponseEntity<Tour>(tourService.getTourByid(id), HttpStatus.ACCEPTED);
 	}
 	
+	//delete tour by id
 	@DeleteMapping("/deleteTour/{id}")
 	public  ResponseEntity<Tour>deleteTour(@PathVariable int id) 
 	{
 		
 		return  new ResponseEntity<Tour>(tourService.deleteTour(id), HttpStatus.ACCEPTED);
 	}
+	
+	//Admin block user
+	@PutMapping("/blockuser/{id}")
+	public  ResponseEntity<User>blockUser(@PathVariable int id)
+	{
+		User user=userrepo.findById(id).orElse(null);
+		if(user !=null) {
+			user.setRoles("Not Valid");
+			return  new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+		}
+	return null;
+	}
+	
+	// Admin Reply to review
+	@PostMapping("/reply/{reviewid}")
+	public ResponseEntity<String>blockUser(@PathVariable int reviewid,@RequestBody String msg)
+	{
+	User user=userrepo.findById(1).orElse(null);
+	if(user !=null) 
+	{
+		user.getReview().setReview(msg);
+		return  new ResponseEntity<String>(msg, HttpStatus.ACCEPTED);
+	}
+	return null;
+	}
+	
 	
 	
 	/*------BY SANKET-----*/

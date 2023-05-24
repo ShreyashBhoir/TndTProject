@@ -27,7 +27,7 @@ public class Tour {
 	private int duration;
 	private int groupSize;
 	private String difficulty;
-	private int rating;
+	private float avgRating;
 	private int price;
 	private String description;
 	
@@ -93,12 +93,12 @@ public class Tour {
 		this.difficulty = difficulty;
 	}
 
-	public int getRating() {
-		return rating;
+	public float getRating() {
+		return avgRating;
 	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setRating(float f) {
+		this.avgRating = f;
 	}
 
 	public int getPrice() {
@@ -158,7 +158,7 @@ public class Tour {
 	@Override
 	public String toString() {
 		return "Tour [tourid=" + tourid + ", name=" + name + ", location=" + location + ", duration=" + duration
-				+ ", groupSize=" + groupSize + ", difficulty=" + difficulty + ", rating=" + rating + ", price=" + price
+				+ ", groupSize=" + groupSize + ", difficulty=" + difficulty + ", rating=" + avgRating + ", price=" + price
 				+ ", description=" + description + ", begindate=" + begindate + ", imageurl=" + imageurl + ", review="
 				+ review + "]";
 	}
