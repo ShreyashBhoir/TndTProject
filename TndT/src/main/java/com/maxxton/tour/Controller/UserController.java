@@ -153,8 +153,22 @@ public class UserController {
 		@GetMapping("/getallusers")
 		public ResponseEntity<List<User>> getallusers()
 		{
+			System.out.println("ok");
 			List<User>users=userRepo.findAll();
 			return new ResponseEntity<List<User>>(users, HttpStatus.ACCEPTED);
+			
+		}
+		
+		@GetMapping("/getallusers/{id}")
+		public ResponseEntity<User> getallusers(@PathVariable int id)
+		{
+			System.out.println("ok");
+			User user=userRepo.findById(id).orElse(null);
+			if(user !=null) {
+				return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);	
+			}
+			return null;
+		
 			
 		}
 }

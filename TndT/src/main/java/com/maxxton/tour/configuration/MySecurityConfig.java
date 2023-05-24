@@ -43,6 +43,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/register").permitAll()
                 .antMatchers("/user/user/booking/**").hasAnyRole(USER,ADMIN)
     			.antMatchers(HttpMethod.POST,"/user/user/booking/addBooking").hasAnyRole(ADMIN, USER)
     			.antMatchers(HttpMethod.PUT,"/user/user/booking/updateBooking/bookingdate/**").hasAnyRole(ADMIN, USER)
