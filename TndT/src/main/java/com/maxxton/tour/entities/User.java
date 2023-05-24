@@ -2,6 +2,7 @@ package com.maxxton.tour.entities;
 
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -26,19 +31,72 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	
+
+	private String firstname;
+	
+
+	private String lastname;
+	
 	@Column(name="USER_NAME")
 	private String userName;
+	
 	
 	@Column(unique=true)
 	private String email;
 	
+	//@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8, 20}$",message="length must be 8")  
 	private String password;
+	
+	
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public long getMobileno() {
+		return mobileno;
+	}
+
+
+	public void setMobileno(long mobileno) {
+		this.mobileno = mobileno;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	private long mobileno;
+	
 	private Boolean isActive;
 	
-	@Column(columnDefinition = "varchar(255) default 'USER'")
-	private String roles;
 	
-	private GregorianCalendar changedPasswordDate;
+	private String gender;
+	
+	private String roles="ROLE_USER";
+
 	
 	
 	@OneToMany
@@ -120,15 +178,7 @@ public class User {
 	}
 
 
-	public GregorianCalendar getChangedPasswordDate() {
-		return changedPasswordDate;
-	}
-
-
-	public void setChangedPasswordDate(GregorianCalendar changedPasswordDate) {
-		this.changedPasswordDate = changedPasswordDate;
-	}
-
+	
 
 	public List<Review> getReview() {
 		return review;
