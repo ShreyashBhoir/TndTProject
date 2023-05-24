@@ -103,6 +103,20 @@ public class UserServiceImpl implements UserService {
 		List<Object[]> allStats = bookingRepo.getUsersAndBookings();
 		return allStats;
 	}
+
+	//update user profile
+	@Override
+	public void profileupdate(User user) 
+	{
+	User user1=userRepo.findById(user.getUserId()).orElse(null);
+	if(user1 !=null)
+	{
+	user1.setUserName(user.getUserName());
+	user1.setEmail(user.getEmail());
+	userRepo.save(user1);
+	}
+		
+	}
 	
 //	public ArrayList<> getReviewStats(){
 //		ArrayList<Booking> allStats = new ArrayList<>();

@@ -141,4 +141,20 @@ public class UserController {
 			
 		}
 		
+		//update profile
+		@PutMapping("/updateprofile")
+		public ResponseEntity<User> updateProfile(@RequestBody User user)
+		{
+			userservice.profileupdate(user);
+			return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
+		}
+		
+		//getallusers
+		@GetMapping("/getallusers")
+		public ResponseEntity<List<User>> getallusers()
+		{
+			List<User>users=userRepo.findAll();
+			return new ResponseEntity<List<User>>(users, HttpStatus.ACCEPTED);
+			
+		}
 }
