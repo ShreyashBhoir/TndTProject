@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maxxton.tour.entities.Booking;
+import com.maxxton.tour.entities.Review;
 import com.maxxton.tour.entities.Tour;
 import com.maxxton.tour.entities.User;
 import com.maxxton.tour.repository.TourRepo;
@@ -99,7 +100,14 @@ public class AdminController {
 	User user=userrepo.findById(1).orElse(null);
 	if(user !=null) 
 	{
-		user.getReview().setReview(msg);
+		List<Review >review =user.getReview();
+		for (Review review2 : review)
+		{
+			if(review2.getReviewid()==reviewid)
+			{
+				review2.setReview(msg);
+			}
+		}
 		return  new ResponseEntity<String>(msg, HttpStatus.ACCEPTED);
 	}
 	return null;
