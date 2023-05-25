@@ -8,6 +8,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.maxxton.tour.entities.JwtRequest;
@@ -33,6 +34,9 @@ public class JwtController {
 
     @Autowired
     private JwtUtil jwtUtil;
+    
+    @Autowired
+    private PasswordEncoder pe;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -40,17 +44,17 @@ public class JwtController {
         System.out.println("Inside Controller");
         System.out.println(jwtRequest);
         try {
-
-            this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+        	System.out.println(jwtRequest.getUsername()+"-----"+jwtRequest.getPassword());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
 
 
         } catch (UsernameNotFoundException e) {
             e.printStackTrace();
-            throw new Exception("Bad Credentials");
+            throw new Exception("Bad Credentials1");
         }catch (BadCredentialsException e)
         {
             e.printStackTrace();
-            throw new Exception("Bad Credentials");
+            throw new Exception("Bad Credentials2");
         }
 
 
@@ -80,7 +84,7 @@ public class JwtController {
         user.setFirstname(user.getFirstname());
         user.setLastname(user.getLastname());
         user.setMobileno(user.getMobileno());
-//        user.setPassword(passwordencoder.encode(user.getPassword()));
+        user.setPassword(pe.encode(user.getPassword()));
         userRepo.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
 

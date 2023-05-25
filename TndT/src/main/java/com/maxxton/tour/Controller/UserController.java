@@ -40,7 +40,6 @@ public class UserController {
 		@PostMapping("/addBooking")
 		public ResponseEntity<Booking> addTour(@RequestBody Booking booking,HttpServletRequest req) 
 		{
-			
 			String token=req.getHeader("Bearer");
 			System.out.println(req.getHeader("Bearer"));
 			//System.out.println(jwt)
@@ -56,7 +55,7 @@ public class UserController {
 	    public ResponseEntity<Booking> getUser(HttpServletRequest req,@PathVariable("id") int id) {
 			String token=req.getHeader("Bearer");
 			System.out.println(req.getHeader("Bearer"));
-			//System.out.println(jwt)
+			System.out.println("token "+token);
 			String email=jwtutil.getUsernameFromToken(token);
 			System.out.println("hi ");
 	        Booking booking = userservice.getBookingById(id);
