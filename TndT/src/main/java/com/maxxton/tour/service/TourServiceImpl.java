@@ -35,7 +35,7 @@ public class TourServiceImpl implements TourService {
 		tour1.setTourid(tour.getTourid());
 		tour1.setName(tour.getName());
 		tour1.setLocation(tour.getLocation());
-		tour1.setGroupSize(tour.getGroupSize());
+		tour1.setAvailableseats(tour.getAvailableseats());
 		tour1.setDifficulty(tour.getDifficulty());
 		tour1.setRating(tour.getRating());
 		tour1.setPrice(tour.getPrice());
@@ -71,7 +71,7 @@ public class TourServiceImpl implements TourService {
 	public Tour deleteTour(int id) {
 		Tour tour=tourRepo.findById(id).orElse(null);
 		if(tour!=null) {
-		
+		tour.setIstouractive(false);
 	   tourRepo.delete(tour);
 		}
 		return null;

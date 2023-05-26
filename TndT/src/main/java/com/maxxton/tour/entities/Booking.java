@@ -3,9 +3,12 @@ package com.maxxton.tour.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,16 +25,28 @@ public class Booking {
 	private int groupsize;
 	private double price;
 	
+	@Enumerated(EnumType.STRING)
+	private Bstatus status=Bstatus.BOOKED;
+	
 	//tour and user mapping
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="tourid")
 	private Tour tour;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="userId")
 	private User user;
 	
 	//getters and setters
+	
+	
+	public Bstatus getStatus() {
+		return status;
+	}
+	public void setStatus(Bstatus status) {
+		this.status = status;
+	}
+	
 	public Date getBookingdate() {
 		return bookingdate;
 	}

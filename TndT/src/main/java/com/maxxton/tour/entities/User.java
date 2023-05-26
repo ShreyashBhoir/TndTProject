@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.bytebuddy.implementation.bind.annotation.Default;
 
 import java.util.*;
@@ -90,7 +92,7 @@ public class User {
 
 	private long mobileno;
 	
-	private Boolean isActive;
+	private Boolean isActive=true;
 	
 	
 	private String gender;
@@ -104,7 +106,7 @@ public class User {
 	private List<Review> review;
 
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Booking> booking;
 	

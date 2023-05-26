@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		//get actual object
 		User userToUpdate = userToUpdateOptional.get();
 		//update its role
-		userToUpdate.setRoles("admin");
+		userToUpdate.setRoles("ROLE_ADMIN");
 		//save updated entity to db
 		userRepo.save(userToUpdate);
 		return true;	/*Updated*/
@@ -117,6 +117,12 @@ public class UserServiceImpl implements UserService {
 	}
 		
 	}
+	
+	@Override
+	public User userFindByEmail(String email) {
+		return userRepo.findByEmail(email);
+	}
+	
 	
 //	public ArrayList<> getReviewStats(){
 //		ArrayList<Booking> allStats = new ArrayList<>();

@@ -13,4 +13,5 @@ public interface UserService {
    public void deleteBookingById(int id);
    public void addReview(Review review);
    public void profileupdate(User user);
+   public User userFindByEmail(String email);
 }
