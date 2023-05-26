@@ -248,11 +248,19 @@ public class UserController {
 			}
 		}
 		
-		@GetMapping("/getbookinghistory/{id}")
-		public ResponseEntity<List<Booking>> getAllBookings(@PathVariable("id") int id)
+		@GetMapping("/getbookinghistory")
+		public ResponseEntity<List<Booking>> getAllBookings(HttpServletRequest req)
 		{
-			User user=userRepo.findById(id).orElse(null);
-			
+			String tokenwithBearer = req.getHeader("Authorization");
+
+			// extracting the email from jwt token
+			String email = jwtutil.getUsernameFromToken(tokenwithBearer.substring(7));
+			System.out.println(email)
+	;
+
+			// finding user from email
+			User user = userservice.userFindByEmail(email)
+	;
 			
 			if(user !=null) {
 				List<Booking>bookinglist=user.getBooking();
