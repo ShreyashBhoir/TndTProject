@@ -47,6 +47,7 @@ public class Tour {
 	private String imageurl;
 	
 	//review entity mapping
+	@JsonIgnore
 	@OneToMany(mappedBy = "tour" ,cascade = CascadeType.REMOVE)
 	private List<Review> review;
 

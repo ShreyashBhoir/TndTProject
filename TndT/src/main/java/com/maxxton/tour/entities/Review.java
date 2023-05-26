@@ -31,6 +31,17 @@ public class Review {
 	@JoinColumn(name="tourid")
 	private Tour tour;
 
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user ;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getReviewid() {
 		return reviewid;
 	}

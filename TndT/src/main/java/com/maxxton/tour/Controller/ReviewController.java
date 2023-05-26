@@ -1,11 +1,17 @@
 package com.maxxton.tour.Controller;
 
-import java.util.Date;
+import java.util.Date
+;
 import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Review;
+import com.maxxton.tour.entities.Tour;
 import com.maxxton.tour.entities.User;
+import com.maxxton.tour.helper.JwtUtil;
 import com.maxxton.tour.repository.ReviewRepo;
+import com.maxxton.tour.repository.TourRepo;
 import com.maxxton.tour.repository.UserRepo;
+import com.maxxton.tour.service.RatingService;
 import com.maxxton.tour.service.UserService;
 
 /*
@@ -35,32 +45,88 @@ import com.maxxton.tour.service.UserService;
 @RequestMapping("/user/user/review")
 public class ReviewController {
 	@Autowired
-	private UserService userservice;	
+	private JwtUtil jwtutil;
+	
+	@Autowired
+	private UserService userservice;
+	
 	
 	@Autowired
 	private UserRepo userrepo;	
 	
+	@Autowired
+	private TourRepo tourRepo;
+	
 	
 	@Autowired
-	private ReviewRepo reviewrepo;	
+	private ReviewRepo reviewRepo;	
 	//CRUD for Review by user
     //User adding new review
 	
-	@PostMapping("/addReview/{id}")
-	public ResponseEntity<User> addReview(@RequestBody Review review,@PathVariable("id") int id) 
-	{
-		User user=userrepo.getById(id);
-		List<Review>r=user.getReview();
-		r.add(review);
-		userservice.addReview(review);
-		userrepo.save(user);
-		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
+	//add review using tour id from pathvariable and userId from token
+	@PostMapping("/addReview/{tourid}")
+	public ResponseEntity<Review> addReviewForTour(@RequestBody Review review,@PathVariable("tourid") int tourid,HttpServletRequest request){
+		// EXTRACTING THE TOKEN
+		String tokenwithBearer = request.getHeader("Authorization");
+
+		// extracting the email from jwt token
+		String email = jwtutil.getUsernameFromToken(tokenwithBearer.substring(7));
+		
+		// finding user from email
+		User user = userservice.userFindByEmail(email);
+		Tour tour = tourRepo.getById(tourid);
+		review.setDateofcreation(new Date());
+		review.setTour(tour);
+		review.setUser(user);
+		reviewRepo.save(review);
+		//reviewRepo.
+		//to update the avg Rating of the tour
+		RatingService.avgRatingCalc(tourid);
+		return new ResponseEntity<>(review,HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/getreview/{tourId}")
+	public ResponseEntity<List<Review>> getReviewForTour(@PathVariable("tourId") int tourId){
+		List<Review> reviewList = reviewRepo.findByTour(tourId);
+		
+		
+		return new ResponseEntity<List<Review>> (reviewList, HttpStatus.OK);
+	}
+	
+	@PutMapping("/updatereview/{tourId}/{reviewId}")
+	public ResponseEntity<Review> updateReview(@RequestBody Review review ,@PathVariable("tourId") int tourId, @PathVariable("reviewId") int reviewId){
+		Optional<Review> fetchedReview = reviewRepo.findById(reviewId);
+		if (fetchedReview.isEmpty())
+			throw new UsernameNotFoundException("invalid Review Id");
+		Review rev1 = fetchedReview.get();
+		rev1.setReview(review.getReview());
+		rev1.setRating(review.getRating());
+		reviewRepo.save(rev1);
+		//to update the avgRating
+		RatingService.avgRatingCalc(tourId);
+		
+		return new ResponseEntity<Review>(rev1,HttpStatus.OK);
+			
+	}
+	
+	
+	
+	
+	/*
+	 * //aading review using tour id
+	 * 
+	 * @PostMapping("/addReview/{id}") public ResponseEntity<User>
+	 * addReview(@RequestBody Review review,@PathVariable("id") int id) { User
+	 * user=userrepo.getById(id); List<Review>r=user.getReview(); r.add(review);
+	 * userservice.addReview(review); userrepo.save(user); return new
+	 * ResponseEntity<User>(user,HttpStatus.ACCEPTED); }
+	 */
 	
 	//get review of a user
 	
-	@GetMapping("/getReview/{id}")
-    public ResponseEntity<List<Review>> getUser(@PathVariable("id") int id) {
+	/* @GetMapping("/getReview/{id}") */
+ /*   public ResponseEntity<List<Review>> getUser(@PathVariable("id") int id) {
 		System.out.println("hi "+id);
 		User user=userrepo.getById(id);
         
@@ -110,5 +176,5 @@ public class ReviewController {
 	    public ResponseEntity<Review> updateReview(@PathVariable("id") int id, @PathVariable("reviewid") int reviewid,@RequestBody Review review) {
          		
 		 return null;
-	}
+	}*/
 }
