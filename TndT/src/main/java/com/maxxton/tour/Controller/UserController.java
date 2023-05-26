@@ -79,6 +79,8 @@ public class UserController {
 
 		if (value <= 0) {
 			// error throw krna hoga
+			tour.setIstouractive(false);
+			tourrepo.save(tour);
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		} else {
 
