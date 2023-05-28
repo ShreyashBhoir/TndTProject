@@ -38,9 +38,9 @@ public class RatingService {
 		Optional<Tour> tour = tourRepo.findById(tourId);
 		if (tour.isEmpty())
 			throw new UsernameNotFoundException("Tour with id:" + tourId + " not found! ");
-		Tour tour1 = tour.get();
-		tour1.setAvgRating(avg);
-		tourRepo.save(tour1);
+		Tour tour2 = tour.get();
+		tour2.setAvgRating(avg);
+		tourRepo.save(tour2);
 		
 
 	}
