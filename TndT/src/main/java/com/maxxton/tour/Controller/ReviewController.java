@@ -87,7 +87,7 @@ public class ReviewController {
 	
 	
 	@GetMapping("/getreview/{tId}")
-	public ResponseEntity<String> getReviewForTour(@PathVariable("tId") String tId){
+	public ResponseEntity<List<Review>> getReviewForTour(@PathVariable("tId") String tId){
 		int id = Integer.parseInt(tId);
 	Optional<Tour>	tourbyId = tourRepo.findById(id);
 	System.out.println(tourbyId.get());
@@ -96,7 +96,7 @@ public class ReviewController {
 	 		
 		
 		
-		return new ResponseEntity<String> ("Hello", HttpStatus.OK);
+		return new ResponseEntity<List<Review>> (reviewList, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatereview/{tourId}/{reviewId}")
