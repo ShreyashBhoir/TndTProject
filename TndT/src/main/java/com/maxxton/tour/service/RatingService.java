@@ -23,7 +23,9 @@ public class RatingService {
 	private static ReviewRepo reviewRepo;
 
 	public static void avgRatingCalc(int tourId) {
-		List<Review> reviewList = reviewRepo.findByTour(tourId);
+		Optional<Tour> tour1 = tourRepo.findById(tourId);
+		
+		List<Review> reviewList = reviewRepo.findByTour(tour1.get());
 		List<Integer> ratingList = new ArrayList<>();
 
 		for (Review review : reviewList) {

@@ -89,7 +89,11 @@ public class ReviewController {
 	@GetMapping("/getreview/{tId}")
 	public ResponseEntity<String> getReviewForTour(@PathVariable("tId") String tId){
 		int id = Integer.parseInt(tId);
-		List<Review> reviewList = reviewRepo.findByTour(id);
+	Optional<Tour>	tourbyId = tourRepo.findById(id);
+	System.out.println(tourbyId.get());
+	
+	   List<Review> reviewList = reviewRepo.findByTour(tourbyId.get());
+	 		
 		
 		
 		return new ResponseEntity<String> ("Hello", HttpStatus.OK);

@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 import com.maxxton.tour.entities.Review;
+import com.maxxton.tour.entities.Tour;
 
 public interface ReviewRepo extends JpaRepository<Review, Integer> {
- List<Review> findByTour(int tourId);
+ List<Review> findByTour(Tour tour);
 }
