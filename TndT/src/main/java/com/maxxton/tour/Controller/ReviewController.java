@@ -42,7 +42,7 @@ import com.maxxton.tour.service.UserService;
  */
 
 @RestController
-@RequestMapping("/user/user/review")
+@RequestMapping("/review")
 public class ReviewController {
 	@Autowired
 	private JwtUtil jwtutil;
@@ -86,12 +86,13 @@ public class ReviewController {
 	}
 	
 	
-	@GetMapping("/getreview/{tourId}")
-	public ResponseEntity<List<Review>> getReviewForTour(@PathVariable("tourId") int tourId){
-		List<Review> reviewList = reviewRepo.findByTour(tourId);
+	@GetMapping("/getreview/{tId}")
+	public ResponseEntity<String> getReviewForTour(@PathVariable("tId") String tId){
+		int id = Integer.parseInt(tId);
+		List<Review> reviewList = reviewRepo.findByTour(id);
 		
 		
-		return new ResponseEntity<List<Review>> (reviewList, HttpStatus.OK);
+		return new ResponseEntity<String> ("Hello", HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatereview/{tourId}/{reviewId}")
