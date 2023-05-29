@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { TourService } from 'src/app/services/tour-services/tour.service';
 import { TourLocation } from 'src/app/interfaces/tour-location';
@@ -80,6 +80,7 @@ import { ReviewsComponent } from "../reviews/reviews.component";
 export class TourdetailsComponent {
   error: boolean = false;
   route: ActivatedRoute = inject(ActivatedRoute);
+  token :string |null ;
 
   tourService: TourService = inject(TourService);
   tourLocation: TourLocation | undefined;
@@ -95,6 +96,7 @@ export class TourdetailsComponent {
   submitBooking() {
     let count = parseInt(this.toursDetails.value.groupSize ?? ' ');
     let availSeats: number | undefined;
+    const tourLocationId = parseInt(this.route.snapshot.params['id'], 10);
 
     if (typeof this.tourLocation == undefined) availSeats = 0;
     else availSeats = this.tourLocation?.availableseats;
@@ -108,12 +110,12 @@ export class TourdetailsComponent {
       this.error = false;
       // this.display(false)
 
-      this.tourService.submitApplication(count);
-      let token = localStorage.getItem('token');
+      this.tourService.submitApplication(count,tourLocationId);
+
     }
   }
 
-  constructor() {
+  constructor(private router : Router) {
     const tourLocationId = parseInt(this.route.snapshot.params['id'], 10);
     this.tourService
       .getTourLocationById(tourLocationId)
@@ -122,5 +124,8 @@ export class TourdetailsComponent {
 
         this.tourLocation = tourLocationId;
       });
+      this.token = localStorage.getItem('token')??"";
+      if(this.token == null)
+       this.router.navigate(['/login'])
   }
 }

@@ -100,9 +100,9 @@ public class ReviewController {
 	}
 	
 	
-	@GetMapping("/getreview/{tId}")
-	public ResponseEntity<List<ReviewDTO>> getReviewForTour(@PathVariable("tId") String tId){
-		int id = Integer.parseInt(tId);
+	@GetMapping("/getreview/{Id}")
+	public ResponseEntity<List<ReviewDTO>> getReviewForTour(@PathVariable("tId") int id){
+//		int id = Integer.parseInt(tId);
 	Optional<Tour>	tourbyId = tourRepo.findById(id);
 	System.out.println(tourbyId.get());
 	
@@ -118,6 +118,16 @@ public class ReviewController {
 	
 	@GetMapping("/getreviewbyuser/{id}")
 	public ResponseEntity<List<ReviewDTO>> getReviewByUser(@PathVariable("id") int id){
+		 Optional<User> user = userrepo.findById(id);
+		 if(user.isEmpty())
+			 throw new UsernameNotFoundException("User Id is invalid");
+		 User user1 = user.get();
+		
+		List<Review> reviewList = reviewRepo.findByUser(user1);
+		List<ReviewDTO> reviewDTOList = new ArrayList();
+		  reviewList.forEach( (e)->reviewDTOList.add(new ReviewDTO(e)));
+		  
+		  return new ResponseEntity<List<ReviewDTO>> (reviewDTOList, HttpStatus.OK);
 		
 	}
 	
