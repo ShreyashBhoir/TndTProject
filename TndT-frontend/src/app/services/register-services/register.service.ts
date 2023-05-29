@@ -7,8 +7,8 @@ export class RegisterService {
   constructor(private http:HttpClient ) { 
 
   }
-   url1= "http://localhost:9095/login";
-   url2= "http://localhost:9095/register";
+   url1= "http://localhost:8083/login";
+   url2= "http://localhost:8083/register";
   users()
   {
     return [

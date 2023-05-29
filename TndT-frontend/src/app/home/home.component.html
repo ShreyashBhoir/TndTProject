@@ -1,1 +1,65 @@
-<p>home works!</p>
+<div class="container mt-5">
+    <!--component holder-->
+    
+        <!--Banner-->
+        <div class="row">
+            <div class="col">
+                <img class="img-fluid" [src]="bannerImage" alt="travel-image"/>
+            </div>
+            <div class="col align-self-center">
+                <div class="display-6 text-warning fst-italic text-center">
+                    "LIVE YOUR LIFE BY A COMPASS, NOT A CLOCK."
+                </div>
+            </div>
+        </div>
+    
+        <!--Top rated Tours-->
+        <div class="container bg-light rounded mt-5 p-3">
+            <div class="h3 text-warning fw-bolder">Top Rated Tours : </div>
+            <div class="row">
+                <!--CARD-->
+                <div class="col">
+                    <div class="card mt-2 col" style="width: 18rem;">
+                        <img [src]="" class="card-img-top" alt="Exterior image">
+                        <div class="card-body">
+                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
+                          <p class="card-text">lOCATION</p>
+                          <a [routerLink]="['/details', 1]">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mt-2 col" style="width: 18rem;">
+                        <img [src]="" class="card-img-top" alt="Exterior image">
+                        <div class="card-body">
+                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
+                          <p class="card-text">lOCATION</p>
+                          <a [routerLink]="['/details', 1]">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mt-2 col" style="width: 18rem;">
+                        <img [src]="" class="card-img-top" alt="Exterior image">
+                        <div class="card-body">
+                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
+                          <p class="card-text">lOCATION</p>
+                          <a [routerLink]="['/details', 1]">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <a routerLink="/tour" class="btn btn-sml btn-primary">See All</a>
+            </div>
+        </div>
+    
+        <!--Top rated Tours-->
+        <div>
+            
+        </div>
+    
+    
+    </div>
+    

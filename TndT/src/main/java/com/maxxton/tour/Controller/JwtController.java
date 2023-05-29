@@ -24,7 +24,7 @@ import com.maxxton.tour.service.EmailService;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class JwtController {
 
     @Autowired

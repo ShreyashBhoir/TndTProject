@@ -43,7 +43,7 @@ import com.maxxton.tour.service.UserService;
  */
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 @RequestMapping("/review")
 public class ReviewController {
 	@Autowired

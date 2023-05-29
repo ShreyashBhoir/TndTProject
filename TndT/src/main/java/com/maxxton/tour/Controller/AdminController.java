@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Review;
 import com.maxxton.tour.entities.Tour;
 import com.maxxton.tour.entities.User;
+import com.maxxton.tour.helper.JwtUtil;
 import com.maxxton.tour.repository.TourRepo;
 import com.maxxton.tour.repository.UserRepo;
 import com.maxxton.tour.service.TourService;
@@ -32,7 +35,7 @@ import com.maxxton.tour.service.UserService;
 import com.maxxton.tour.service.UserServiceImpl;
 
 @RestController
-@CrossOrigin(origins =  "http://localhost:4200/")
+@CrossOrigin(origins =  "*")
 @RequestMapping("/user/admin")
 public class AdminController {
 	
@@ -45,6 +48,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserRepo userrepo;
+	
+	@Autowired
+	private JwtUtil jwtutil;
 	
 	//CRUD for Tour by admin
 	//Admin adding new tour
@@ -135,9 +141,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("/getAdminDetails")
-	public ResponseEntity<User> getAdmin(){
-		userService.getAdminDetails();
-		return new ResponseEntity<User>(userService.getAdminDetails(),HttpStatus.OK);
+	public ResponseEntity<User> getAdmin(HttpServletRequest req){
+		String tokenwithBearer = req.getHeader("Authorization");
+
+		// extracting the email from jwt token
+		String email = jwtutil.getUsernameFromToken(tokenwithBearer.substring(7));
+		System.out.println("hello   email from addbooking " + email);
+
+		//userService.getAdminDetails(email);
+		return new ResponseEntity<User>(userService.getAdminDetails(email),HttpStatus.OK);
 	}
 
 	//Admin can make user admin

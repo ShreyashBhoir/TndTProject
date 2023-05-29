@@ -70,14 +70,15 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/*ADMIN ACTIONS*/
-	public User getAdminDetails() {
-		Optional<User> user = userRepo.findById(3);
+	public User getAdminDetails(String email) {
+		User user = userRepo.findByEmail(email);
+		
 		/*if no one present with id, Give null*/
-		if(!user.isPresent()) {
+		if(user==null) {
 			throw new RuntimeException("User not found");
 		}
 		
-		return user.get();
+		return user;
 	}
 	public boolean makeAdmin(int userId) {
 		//try to get ref to entity to update

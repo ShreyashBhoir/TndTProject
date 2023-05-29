@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class HeaderService {
 
   constructor() { }
+
+  public logoutUser(){
+    localStorage.clear();
+  }
 }
