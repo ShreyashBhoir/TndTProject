@@ -13,14 +13,17 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'com.oracle.database.jdbc:ojdbc8:19.6.0.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	
+	 compileOnly 'org.projectlombok:lombok'
+	 implementation 'org.springframework.boot:spring-boot-starter-mail'
+  annotationProcessor 'org.projectlombok:lombok'
+  testImplementation 'org.apache.httpcomponents.client5:httpclient5'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.0'
 	
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
@@ -29,6 +32,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1'
 	
 }
 

@@ -1,6 +1,7 @@
 package com.maxxton.tour.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import com.maxxton.tour.DTO.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,15 +12,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import com.maxxton.tour.entities.EmailDetails;
 import com.maxxton.tour.entities.JwtRequest;
 import com.maxxton.tour.entities.JwtResponse;
 import com.maxxton.tour.entities.User;
 import com.maxxton.tour.helper.JwtUtil;
 import com.maxxton.tour.repository.UserRepo;
 import com.maxxton.tour.service.CustomerUserDetailsService;
+import com.maxxton.tour.service.EmailService;
+
+import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtController {
 
     @Autowired
@@ -37,9 +42,12 @@ public class JwtController {
     
     @Autowired
     private PasswordEncoder pe;
-
+    
+    @Autowired
+    private EmailService emailService;
+    
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+    public ResponseEntity<LoginDTO> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         System.out.println("Inside Controller");
         System.out.println(jwtRequest);
@@ -64,13 +72,19 @@ public class JwtController {
         System.out.println( userDetails);
         String token = this.jwtUtil.generateToken(userDetails);
         System.out.println("JWT " + token);
-
-        //{"token":"value"}
-
-        return ResponseEntity.ok(new JwtResponse(token));
+         
+         String username=jwtRequest.getUsername();
+         System.out.println(username);
+         User user=userRepo.findByEmail(username);
+         System.out.println(user.getRoles());
+         LoginDTO u=new LoginDTO();
+         u.setToken(token);
+         u.setRoles(user.getRoles());
+        return ResponseEntity.ok(u);
 
     }
     
+ 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception {
 
@@ -86,6 +100,11 @@ public class JwtController {
         user.setMobileno(user.getMobileno());
         user.setPassword(pe.encode(user.getPassword()));
         userRepo.save(user);
+        EmailDetails details=new EmailDetails();
+        details.setRecipient(user.getEmail());
+        details.setMsgBody("Hey \n \n This is Registration email \n\n Thank You For Registering");
+        details.setSubject("Tour Registraion Email");
+        String status= emailService.sendSimpleMail(details);
         return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
