@@ -15,5 +15,11 @@ export class ReviewService {
 
   }
 
+  async getAllReviewByTour(tourid:string):Promise<Review[]>{
+
+    const data = fetch(this.url+`/getreview/${tourid}`)
+    return await (await data).json()??[]
+  }
+
   constructor() { }
 }

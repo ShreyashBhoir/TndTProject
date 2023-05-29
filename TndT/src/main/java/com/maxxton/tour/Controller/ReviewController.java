@@ -116,6 +116,11 @@ public class ReviewController {
 		return new ResponseEntity<List<ReviewDTO>> (reviewDTOList, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getreviewbyuser/{id}")
+	public ResponseEntity<List<ReviewDTO>> getReviewByUser(@PathVariable("id") int id){
+		
+	}
+	
 	@PutMapping("/updatereview/{tourId}/{reviewId}")
 	public ResponseEntity<Review> updateReview(@RequestBody Review review ,@PathVariable("tourId") int tourId, @PathVariable("reviewId") int reviewId){
 		Optional<Review> fetchedReview = reviewRepo.findById(reviewId);
