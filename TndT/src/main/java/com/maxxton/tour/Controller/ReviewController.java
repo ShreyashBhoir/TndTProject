@@ -1,5 +1,6 @@
 package com.maxxton.tour.Controller;
 
+import java.util.ArrayList;
 import java.util.Date
 ;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maxxton.tour.DTO.ReviewDTO;
 import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Review;
 import com.maxxton.tour.entities.Tour;
@@ -87,20 +89,31 @@ public class ReviewController {
 		return new ResponseEntity<>(review,HttpStatus.OK);
 	}
 	
+	@GetMapping
+	public ResponseEntity<List<ReviewDTO>> getAllReview(){
+		List<Review> reviewList =  reviewRepo.findAll();
+		List<ReviewDTO> reviewDTOList = new ArrayList();
+		reviewList.forEach(e->reviewDTOList.add(new ReviewDTO(e)));
+		
+		return new ResponseEntity<List<ReviewDTO>>(reviewDTOList,HttpStatus.OK);
+		
+	}
+	
 	
 	@GetMapping("/getreview/{tId}")
-	public ResponseEntity<List<Review>> getReviewForTour(@PathVariable("tId") String tId){
+	public ResponseEntity<List<ReviewDTO>> getReviewForTour(@PathVariable("tId") String tId){
 		int id = Integer.parseInt(tId);
 	Optional<Tour>	tourbyId = tourRepo.findById(id);
 	System.out.println(tourbyId.get());
 	
 	   List<Review> reviewList = reviewRepo.findByTour(tourbyId.get());
-	   
+	   List<ReviewDTO> reviewDTOList = new ArrayList();
+	  reviewList.forEach( (e)->reviewDTOList.add(new ReviewDTO(e)));
 	   System.out.println(reviewList);
 	 		
 		
 		
-		return new ResponseEntity<List<Review>> (reviewList, HttpStatus.OK);
+		return new ResponseEntity<List<ReviewDTO>> (reviewDTOList, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatereview/{tourId}/{reviewId}")

@@ -90,7 +90,7 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		} else {
 
-			tour.setGroupSize(tourgroupsize - bookinggroupsize);
+			tour.setAvailableseats(tourgroupsize - bookinggroupsize);
 			double price = tour.getPrice();
 			if (bookinggroupsize >= 5) {
 //				double price=tour.getPrice();

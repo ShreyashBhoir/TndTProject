@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AdminComponent } from './admin/admin.component';
-import { ContactUsComponent } from './contact-us/contact-us.component'; 
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -22,7 +22,7 @@ const routes: Routes = [
   {path:"login",component:LoginComponent,title:"login"},
   {path:"register",component:RegisterComponent,title:"register"},
   {path:"tour",component:TourhomeComponent,title:"tour"},
-  {path:"tour/details/:id",component:TourdetailsComponent,title:"tour-details"},
+  {path:"details/:id",component:TourdetailsComponent,title:"tour-details"},
   {path:"user",component:UserComponent,title:"user"},
   {path:"user/bookings",component:UserBookingsComponent,title:"bookings"},
   {path:"user/settings",component:UserUpdateComponent,title:"settings"},
