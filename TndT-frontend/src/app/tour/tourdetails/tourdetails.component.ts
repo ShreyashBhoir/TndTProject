@@ -13,5 +13,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./tourdetails.component.css']
 })
 export class TourdetailsComponent {
-
+  
 }

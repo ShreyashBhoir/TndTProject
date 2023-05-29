@@ -93,6 +93,8 @@ public class ReviewController {
 	System.out.println(tourbyId.get());
 	
 	   List<Review> reviewList = reviewRepo.findByTour(tourbyId.get());
+	   
+	   System.out.println(reviewList);
 	 		
 		
 		
