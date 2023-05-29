@@ -64,7 +64,21 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	public BookingRepo bookingRepo;
 	
+	public List<User> getAllUsers(){
+		List<User> userList = userRepo.findAll();
+		return userList;
+	}
+	
 	/*ADMIN ACTIONS*/
+	public User getAdminDetails() {
+		Optional<User> user = userRepo.findById(3);
+		/*if no one present with id, Give null*/
+		if(!user.isPresent()) {
+			throw new RuntimeException("User not found");
+		}
+		
+		return user.get();
+	}
 	public boolean makeAdmin(int userId) {
 		//try to get ref to entity to update
 		Optional<User> userToUpdateOptional = userRepo.findById(userId);
@@ -76,6 +90,22 @@ public class UserServiceImpl implements UserService {
 		User userToUpdate = userToUpdateOptional.get();
 		//update its role
 		userToUpdate.setRoles("ROLE_ADMIN");
+		//save updated entity to db
+		userRepo.save(userToUpdate);
+		return true;	/*Updated*/
+	}
+	
+	public boolean makeUser(int userId) {
+		//try to get ref to entity to update
+		Optional<User> userToUpdateOptional = userRepo.findById(userId);
+		/*if no one present with id, Give null*/
+		if(!userToUpdateOptional.isPresent()) {
+			return false;
+		}
+		//get actual object
+		User userToUpdate = userToUpdateOptional.get();
+		//update its role
+		userToUpdate.setRoles("ROLE_USER");
 		//save updated entity to db
 		userRepo.save(userToUpdate);
 		return true;	/*Updated*/

@@ -1,5 +1,6 @@
 package com.maxxton.tour.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maxxton.tour.DTO.BookingDTO;
+import com.maxxton.tour.DTO.TourDTO;
 import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Review;
 import com.maxxton.tour.entities.Tour;
@@ -63,7 +66,10 @@ public class AdminController {
 	@GetMapping("/getTours")
 	public  ResponseEntity<List<Tour>> getAllTours()
 	{
-		List tours=tourService.getTours();
+		List<Tour> tours=tourService.getTours();
+		List<TourDTO> toursDtoList = new ArrayList<>();
+		tours.forEach((e)->{toursDtoList.add(new TourDTO(e));});
+		
 		return  new ResponseEntity<List<Tour>>(tours, HttpStatus.ACCEPTED);
 	}
 	
@@ -121,15 +127,37 @@ public class AdminController {
 	
 	@Autowired
 	public UserServiceImpl userService;
+	
+	@GetMapping("/getUsers")
+	public ResponseEntity<List<User>> getUsers(){
+		//List<User> userList = userService.getAllUsers();
+		return new ResponseEntity<List<User>>(userService.getAllUsers(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAdminDetails")
+	public ResponseEntity<User> getAdmin(){
+		userService.getAdminDetails();
+		return new ResponseEntity<User>(userService.getAdminDetails(),HttpStatus.OK);
+	}
 
 	//Admin can make user admin
 	@PatchMapping("/makeadmin/{id}")
 	public ResponseEntity<String> makeAdmin(@PathVariable int id){
-		if(userService.makeAdmin(id))
-			return ResponseEntity.ok("done");
-		else
-			return ResponseEntity.badRequest().body("Operation failed");
+		if(userService.makeAdmin(id)) {
+			return new ResponseEntity<String>(new String("done"),HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<String>("operation failed",HttpStatus.BAD_REQUEST);
+		}
 	}
+	//Admin can make user admin
+	@PatchMapping("/makeuser/{id}")
+		public ResponseEntity<String> makeUser(@PathVariable int id){
+			if(userService.makeUser(id))
+				return new ResponseEntity<String>(new String("done"),HttpStatus.OK);
+			else
+				return new ResponseEntity<String>("Operation failed",HttpStatus.BAD_REQUEST);
+		}
 	
 	//getting all bookings
 	@GetMapping("/stats")
@@ -143,12 +171,15 @@ public class AdminController {
 	
 	//get stats for this year
 	@GetMapping("/stats/{year}")
-	public ResponseEntity<List<Booking>> allStatsOfYear(@PathVariable int year){
+	public ResponseEntity<List<BookingDTO>> allStatsOfYear(@PathVariable int year){
 		List<Booking> result = userService.getStatsForYear(year);
+		List<BookingDTO> resultDTOList = new ArrayList<>();
+		result.forEach((e)->resultDTOList.add(new BookingDTO(e)));
+		
 		if(result!=null)
-			return new ResponseEntity<List<Booking>>(result,HttpStatus.OK);
+			return new ResponseEntity<List<BookingDTO>>(resultDTOList,HttpStatus.OK);
 		else
-			return new ResponseEntity<List<Booking>>(result,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<BookingDTO>>(resultDTOList,HttpStatus.BAD_REQUEST);
 	}
 
 	
