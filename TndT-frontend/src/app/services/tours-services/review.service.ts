@@ -4,7 +4,7 @@ import { Review } from 'src/app/interfaces/review';
   providedIn: 'root'
 })
 export class ReviewService {
- url = "http://8083/review"
+ url = "http://localhost:8083/review"
 
   review : Review[] = []
 
