@@ -11,33 +11,33 @@ import { Booking } from 'src/app/interfaces/Booking';
 export class UserBookingsService {
 
   constructor( private http: HttpClient )
-  
+
   { }
   private token:string="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYXlhbmo2NTFAZ21haWwuY29tIiwiaWF0IjoxNjg1MzUzNjM3LCJleHAiOjE2ODUzNzE2Mzd9.AI7Yg8MlEHCgPz6xUsD1ze2Oyo__zths3S3yM4pOQ_c"
 
-   
-  retrieveBookings(): Observable<Booking[]> 
-  {
-    
-    const apiEndpoint = 'http://localhost:9090/user/user/booking/getbookinghistory';
 
-   
+  retrieveBookings(): Observable<Booking[]>
+  {
+
+    const apiEndpoint = 'http://localhost:8083/user/user/booking/getbookinghistory';
+
+
     const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`);
 
-    
+
     // Make an HTTP GET request to retrieve user data
     return this.http.get<Booking []>(apiEndpoint,{headers});
-    
+
   }
 
   deletebooking(id:any):any
   {
-    const apiEndpoint = `http://localhost:9090/user/user/booking/deleteBooking/${id}`;
+    const apiEndpoint = `http://localhost:8083/user/user/booking/deleteBooking/${id}`;
 
-   
+
     const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`);
 return this.http.delete(apiEndpoint,{headers});
   }
 
-   
+
 }
