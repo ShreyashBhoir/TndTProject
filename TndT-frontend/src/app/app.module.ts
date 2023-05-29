@@ -27,6 +27,10 @@ import { UserBookingsService } from './services/user-bookings-services/user-book
 import { UserUpdateService } from './services/user-update-services/user-update.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/material.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpClientModule
 
   ],
   providers: [AboutUsService,AdminService,ContactUsService,
