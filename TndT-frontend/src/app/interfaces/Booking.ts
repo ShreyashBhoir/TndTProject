@@ -18,7 +18,7 @@ export interface Tour{
     difficulty:string;
     avgRating: number;
     price: number;
-    discription: string;
+    description: string;
     begindate: Date;
     imageurl: string;
     istouractive:boolean,

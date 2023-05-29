@@ -13,7 +13,7 @@ export class UserBookingsService {
   constructor( private http: HttpClient )
 
   { }
-  private token:string="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYXlhbmo2NTFAZ21haWwuY29tIiwiaWF0IjoxNjg1MzUzNjM3LCJleHAiOjE2ODUzNzE2Mzd9.AI7Yg8MlEHCgPz6xUsD1ze2Oyo__zths3S3yM4pOQ_c"
+  private token:string|null=localStorage.getItem('token')
 
 
   retrieveBookings(): Observable<Booking[]>

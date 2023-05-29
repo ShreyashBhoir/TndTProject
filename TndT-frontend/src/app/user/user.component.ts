@@ -57,7 +57,7 @@ Logout()
 {
   
     
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('token');
 
     this.router.navigate(['/login']);
  
