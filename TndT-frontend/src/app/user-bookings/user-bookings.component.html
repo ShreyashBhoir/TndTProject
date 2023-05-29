@@ -1,1 +1,42 @@
-<p>user-bookings works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>Booking Date</th>
+        <th>Group Size</th>
+        <th>Prize</th>
+        <th>TourName</th>
+        <th>Status</th>
+        <th>Cancel Booking</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings" >
+        <td>{{ booking.bookingid }}</td>
+        <td>{{ booking.bookingdate }}</td>
+        <td>{{ booking.groupsize }}</td>
+        <td>{{ booking.price}}</td>
+        <td>{{ booking.tour.name}}</td>
+        <td *ngIf="booking.tour.istouractive  ; else elseBlock" >
+          <span> {{ booking.status }}</span>
+        </td>
+        <ng-template #elseBlock>
+          <td>Tour Completed</td> 
+        </ng-template>
+  
+        <td *ngIf="booking.tour.istouractive && calculateDateDifference(booking) ; else elseBlock1">
+          <button (click)="deleteBooking(booking)">Delete Booking</button>
+        </td>
+        <ng-template #elseBlock1>
+          <td>NaN</td>
+        </ng-template>
+        
+      </tr>
+    </tbody>
+  </table>
+  
+  <br><br><br>
+  
+  <button (click)="back()"  class="button">Back</button>
+  <router-outlet></router-outlet>

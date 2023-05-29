@@ -1,1 +1,49 @@
 <p>user-update works!</p>
+
+<div class="container">
+    <h2>Update Profile!!!</h2>
+    <form  [formGroup]="userupdate" >
+      <div class="form-group" >
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control border-color" formControlName="firstname"  placeholder="Enter firstName" >
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control border-color" formControlName="lastname" placeholder="Enter your last name">
+      </div>
+      <div class="form-group">
+        <label for="mobileNo">Mobile Number</label>
+        <input type="text" class="form-control border-color" formControlName="mobileno" placeholder="Enter your mobile number">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control border-color" formControlName="email" placeholder="Enter your email">
+      </div>
+      
+        <div class="form-group">
+          <label for="email">Password</label>
+          <input type="text" class="form-control border-color" formControlName="password" placeholder="Enter your password" >
+        </div>
+
+        <div class="form-group"  >
+          <label for="email">ConfirmPassword</label>
+          <input type="text" class="form-control border-color" formControlName="confirm" placeholder="confirm password" >
+        </div>
+
+        <div *ngIf="confirmpass() && userupdate.touched" id="div1">
+          Passwords do not match.
+        </div>
+        <div class="form-group">
+          <label for="email">Gender</label>
+          <input type="text" class="form-control border-color" formControlName="gender" placeholder="Enter your gender" >
+        </div>
+
+        <div>
+      <button type="submit" class="btn btn-primary" (click)="submitUserForm()">Submit</button>
+    </div>
+    <br><br>
+    <button (click)="back()"  class="button">Back</button>
+    </form>
+  </div>
+  
+  

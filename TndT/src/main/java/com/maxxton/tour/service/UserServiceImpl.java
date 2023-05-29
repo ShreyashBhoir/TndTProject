@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.maxxton.tour.DTO.UserDto;
 import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Review;
 import com.maxxton.tour.entities.User;
@@ -136,18 +137,38 @@ public class UserServiceImpl implements UserService {
 	}
 
 	//update user profile
-	@Override
-	public void profileupdate(User user) 
-	{
-	User user1=userRepo.findById(user.getUserId()).orElse(null);
-	if(user1 !=null)
-	{
-	user1.setUserName(user.getUserName());
-	user1.setEmail(user.getEmail());
-	userRepo.save(user1);
-	}
+
+	   @Override
+		public void profileupdate(UserDto user) 
+		{
+		User user1=userRepo.findByEmail(user.getEmail());
 		
-	}
+		System.out.println(user1);
+		if(user1 !=null)
+		{
+			System.out.println("hi bro");
+		System.out.println(user.getFirstname());
+			user1.setFirstname(user.getFirstname());
+			user1.setLastname(user.getLastname());
+			user1.setMobileno(user.getMobileno());
+			user1.setEmail(user1.getEmail());
+			user1.setBooking(user1.getBooking());
+			user1.setGender(user1.getGender());
+			user1.setIsActive(user1.getIsActive());
+			user1.setPassword(user1.getPassword());
+			user1.setRoles(user1.getRoles());
+			user1.setReview(user1.getReview());
+			user1.setUserId(user1.getUserId());
+			user1.setUserName(user1.getUserName());
+		
+		userRepo.save(user1);
+		}
+		else
+		{
+			System.out.println("I am in else");
+		}
+			
+		}
 	
 	@Override
 	public User userFindByEmail(String email) {

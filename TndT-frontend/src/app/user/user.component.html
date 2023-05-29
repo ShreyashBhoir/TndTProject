@@ -1,1 +1,59 @@
-<p>user works!</p>
+
+<div id="main2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: blue;">
+      <a class="navbar-brand" href="#">
+        
+        <div class="user-profile">
+          <!-- Replace 'path/to/user-profile-image' with the actual path to the user profile image -->
+          <img src="assets/images/profile.jpg" alt="User Profile Image">
+        </div>
+      </a>
+      <label><span class="span-with-margin">{{users.firstname}}.</span><span class="span-with-margin">{{users.lastname}}</span></label>
+      
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button  class="button"  (click)="gotobookings()">Bookings</button>
+          </li>
+          <li class="nav-item">
+            <button class="button" (click)="updateProfile()" >Update Profile</button>
+          </li>
+          <li class="nav-item">
+            <button class="button"  (click)="Logout()" >Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    
+    
+    <div style="background-color: #00ff4000;">
+    <div *ngFor="let tour of tours" >
+      <div class="container" *ngIf="tour.istouractive" id="main1">
+      
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="/assets/images/tour1.jpg" alt="Card image cap">
+        <div class="card-body" >
+          <h1 class="card-title">{{tour.name}}</h1>
+          <p class="card-text">{{tour.location}}</p>
+            <p class="card-text">{{tour.discription}}</p>
+       </div>
+      </div>
+      
+      </div>
+      <br>
+      </div>
+      
+    
+    
+    </div>
+    </div>
+    
+    
+      <router-outlet></router-outlet>
+      

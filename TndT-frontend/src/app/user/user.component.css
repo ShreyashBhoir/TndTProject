@@ -1,0 +1,65 @@
+.user-profile img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-left: 10px;
+  }
+
+  /* Add this CSS code to your component's CSS file or styles.css file */
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    color: #ffffff;
+    background-color: #4CAF50;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+  .button:active {
+    background-color: #398439;
+  }
+  
+  .button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  .container {
+    display: flex;
+  
+  }
+
+
+  .card {
+    margin-left: 10px;
+  
+  }
+
+  .span-with-margin {
+    margin-right: 10px;
+  }
+
+  main3{
+    color: #4CAF50;
+  }
+  
+
+  /* Optional: Add more styles to customize the button further */
+  

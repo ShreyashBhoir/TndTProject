@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maxxton.tour.DTO.UserDto;
 import com.maxxton.tour.entities.Booking;
+import com.maxxton.tour.entities.Bstatus;
 import com.maxxton.tour.entities.EmailDetails;
 import com.maxxton.tour.entities.Tour;
 import com.maxxton.tour.entities.User;
@@ -232,17 +234,60 @@ public class UserController {
 	}
 */
 	// user can delete booking by id
-	@DeleteMapping("/deleteBooking/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
-		Booking booking = userservice.getBookingById(id);
-		if (booking == null) {
-			System.out.println("Booking is null");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			userservice.deleteBookingById(id);
-			return new ResponseEntity<>("USER DELETED WITH ID" + id, HttpStatus.NO_CONTENT);
+	@DeleteMapping("/deleteBooking/{bid1}")
+	public ResponseEntity<String> deleteUser(@PathVariable("bid1") String bid1) {
+		System.out.println("I am in deleter+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		int bid=Integer.parseInt(bid1);
+		Booking booking = userservice.getBookingById(bid);
+		if(booking==null)
+		{
+			 System.out.println("Booking is null");
+			 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			 Tour tour=booking.getTour();
+			long milliseconds=tour.getBegindate().getTime()-booking.getBookingdate().getTime();
+			long days = milliseconds / (1000*60*60 * 24);
+			if(days>=15) 
+			{
+         //userservice.deleteBookingById(bid);
+        booking.setStatus(Bstatus.CANCELLED);
+      
+		tour.setAvailableseats(tour.getAvailableseats()+booking.getGroupsize());
+		bookingrepo.delete(booking);
+         
+		System.out.println("end of delete");
+         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+			else {
+				 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
 		}
 	}
+	
+	@GetMapping("/getbookinghistory")
+	public ResponseEntity<List<Booking>> getAllBookings(HttpServletRequest req)
+	{
+		String tokenwithBearer = req.getHeader("Authorization");
+
+		// extracting the email from jwt token
+		String email = jwtutil.getUsernameFromToken(tokenwithBearer.substring(7));
+		System.out.println(email)
+;
+
+		// finding user from email
+		User user = userservice.userFindByEmail(email)
+;
+		
+		if(user !=null) {
+			List<Booking>bookinglist=user.getBooking();
+			return new ResponseEntity<List<Booking>>(bookinglist,HttpStatus.ACCEPTED);
+		}
+		return null;
+		
+	}
+	
 
 	@GetMapping("/getbookinghistory/{id}")
 	public ResponseEntity<List<Booking>> getAllBookings(@PathVariable("id") int id) {
@@ -258,11 +303,13 @@ public class UserController {
 
 	// update profile
 	@PutMapping("/updateprofile")
-	public ResponseEntity<User> updateProfile(@RequestBody User user) {
+	public ResponseEntity<UserDto> updateProfile(@RequestBody UserDto user)
+	{
+	System.out.println("I am in userprofile controller");
+	System.out.println(user.getEmail());
 		userservice.profileupdate(user);
-		return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+		return new ResponseEntity<UserDto>(user,HttpStatus.ACCEPTED);
 	}
-
 	// getallusers
 	@GetMapping("/getallusers")
 	public ResponseEntity<List<User>> getallusers() {
@@ -282,4 +329,22 @@ public class UserController {
 		return null;
 
 	}
+	
+	
+	@GetMapping("/getallusersbylogin")
+	public ResponseEntity<User> getallusers1( HttpServletRequest req)
+	{
+		
+		String tokenwithBearer = req.getHeader("Authorization");
+
+		// extracting the email from jwt token
+		String email = jwtutil.getUsernameFromToken(tokenwithBearer.substring(7));
+		System.out.println(email);
+
+		// finding user from email
+		User user = userservice.userFindByEmail(email);
+		return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+		
+	}
+	
 }
