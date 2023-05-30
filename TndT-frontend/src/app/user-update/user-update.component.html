@@ -17,19 +17,19 @@
                 <form  [formGroup]="userupdate" >
                     <div class="input__box">
                         <label for="firstName">First Name</label>
-                        <input type="text" class="form-control border-color" formControlName="firstname"  placeholder="Enter FirstName" >
+                        <input type="text" class="form-control border-color" formControlName="firstname"  placeholder="{{users.firstname}}" >
                     </div>
                     <div class="input__box">
                       <label for="lastName">Last Name</label>
-                      <input type="text" class="form-control border-color" formControlName="lastname" placeholder="Enter your last name">
+                      <input type="text" class="form-control border-color" formControlName="lastname" placeholder="{{users.lastname}}">
                     </div>
                     <div class="input__box">
                       <label for="mobileNo">Mobile Number</label>
-        <input type="text" class="form-control border-color" formControlName="mobileno" placeholder="Enter your mobile number">
+        <input type="text" class="form-control border-color" formControlName="mobileno" placeholder="{{users.mobileno}}">
                   </div>
                   <div class="input__box">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control border-color" formControlName="email" placeholder="Enter your email">
+                    <input type="email" class="form-control border-color" formControlName="email" placeholder="{{users.email}}">
                 </div>
                 <div class="input__box">
                   <label for="email">Password</label>

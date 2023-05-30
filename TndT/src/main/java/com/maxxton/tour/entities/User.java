@@ -3,6 +3,7 @@ package com.maxxton.tour.entities;
 
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -101,13 +102,13 @@ public class User {
 
 	
 	
-	@OneToMany
-	@JoinColumn(name="reviewid")
+	@OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+	
 	private List<Review> review;
 
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
 	private List<Booking> booking;
 	
 	public List<Booking> getBooking() {

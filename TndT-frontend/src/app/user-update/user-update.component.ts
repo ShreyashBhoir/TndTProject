@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserUpdate } from '../interfaces/UserUpdate';
+import { User } from '../interfaces/User';
+import { UserService } from '../services/user-services/user.service';
 
 @Component({
   selector: 'app-user-update',
@@ -13,6 +15,7 @@ import { UserUpdate } from '../interfaces/UserUpdate';
 export class UserUpdateComponent  implements OnInit{
 
   userupdate: FormGroup;
+  users:User;
 user:UserUpdate  = 
 {
   firstname:"",
@@ -26,7 +29,7 @@ gender:""
 };
 hideLabel:boolean=false;
 
-  constructor(private  userupdateservice :UserUpdateService ,private router:Router)
+  constructor(private  userupdateservice :UserUpdateService ,private router:Router,private userservice :UserService)
   {
     this.userupdate= new FormGroup({
     password: new FormControl(''),
@@ -37,6 +40,19 @@ hideLabel:boolean=false;
       gender: new FormControl(''),
       mobileno:new FormControl('')
     });
+    this.users={
+      userId:0,
+      firstname:"",
+      lastname:"",
+      userName:"",
+      email:"",
+      password:"",
+      mobileno:"",
+      isActive:true,
+      gender:"",
+      roles:""
+    
+    }
 
     
      
@@ -44,7 +60,10 @@ hideLabel:boolean=false;
 
   
   ngOnInit(): void {
-    
+    this.userservice.getallusers().subscribe((data)=>{this.users=data
+      console.log(data);
+      console.log(this.users);
+    })
   }
 
   submitUserForm(): any{
