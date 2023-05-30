@@ -33,17 +33,17 @@ this.users={
   }
 
   ngOnInit(): void {
-      if(localStorage.getItem("token") === null || localStorage.getItem("roles")===null){
-        alert("Invalid session. Please login again")
-        this.Logout();
-        return;
-      }
+    if(localStorage.getItem("token") === null || localStorage.getItem("roles")===null){
+      alert("Invalid session. Please login again")
+      this.Logout();
+      return;
+    }
 
-this.userservice.getalltours().subscribe((data)=>this.tours=data)
-this.userservice.getallusers().subscribe((data)=>{this.users=data
-  console.log(data);
-  console.log(this.users);
-})
+    this.userservice.getalltours().subscribe((data)=>this.tours=data)
+    this.userservice.getallusers().subscribe((data)=>{this.users=data
+      console.log(data);
+      console.log(this.users);
+    })
 
 }
 
