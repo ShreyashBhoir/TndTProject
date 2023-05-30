@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maxxton.tour.DTO.BookingDTO;
 import com.maxxton.tour.DTO.UserDto;
 import com.maxxton.tour.entities.Booking;
 import com.maxxton.tour.entities.Bstatus;
@@ -58,7 +59,7 @@ public class UserController {
 	// CRUD for Booking by user
 	// User adding new booking
 	@PostMapping("/addBooking/{tourid}")
-	public ResponseEntity<Booking> addTour(@PathVariable("tourid") int tourid, @RequestBody Booking booking,
+	public ResponseEntity<BookingDTO> addTour(@PathVariable("tourid") int tourid, @RequestBody Booking booking,
 			HttpServletRequest req) {
 		// EXTRACTING THE TOKEN
 		String tokenwithBearer = req.getHeader("Authorization");
@@ -135,7 +136,8 @@ public class UserController {
 	        String status= emailService.sendSimpleMail(details);
 			
 			System.out.println("hello  at end ");
-			return new ResponseEntity<>(booking, HttpStatus.OK);
+			
+			return new ResponseEntity<>(new BookingDTO(booking), HttpStatus.OK);
 		}
 	}
 

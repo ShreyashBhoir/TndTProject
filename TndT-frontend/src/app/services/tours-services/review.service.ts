@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Review } from 'src/app/interfaces/review';
 @Injectable({
@@ -21,7 +22,7 @@ export class ReviewService {
     return await (await data).json()??[]
   }
 
-  
 
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
 }

@@ -15,7 +15,7 @@ import { TourLocation } from 'src/app/interfaces/tour-location';
     <img src="./assets/location-pin.svg">
     <h4 class="card-title">{{tourLocation.name}},IN</h4>
     <h5 class="card-title">{{tourLocation.location}},IN</h5>
-    <p class="card-text">{{tourLocation.discription}}</p>
+    <p class="card-text">{{tourLocation.description}}</p>
     <a [routerLink]="['/details', tourLocation.tourid]">Learn More</a>
   </div>
 </div>

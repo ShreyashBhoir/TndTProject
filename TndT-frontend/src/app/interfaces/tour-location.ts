@@ -7,8 +7,8 @@ export interface TourLocation {
   difficulty:string;
   avgRating: number;
   price: number;
-  discription: string;
-  beginDate: Date;
+  description: string;
+  begindate: Date;
   imageurl: string;
   isActive :boolean;
 }

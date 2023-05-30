@@ -100,8 +100,8 @@ public class ReviewController {
 	}
 	
 	
-	@GetMapping("/getreview/{Id}")
-	public ResponseEntity<List<ReviewDTO>> getReviewForTour(@PathVariable("tId") int id){
+	@GetMapping("/getreview/{id}")
+	public ResponseEntity<List<ReviewDTO>> getReviewForTour(@PathVariable("id") int id){
 //		int id = Integer.parseInt(tId);
 	Optional<Tour>	tourbyId = tourRepo.findById(id);
 	System.out.println(tourbyId.get());

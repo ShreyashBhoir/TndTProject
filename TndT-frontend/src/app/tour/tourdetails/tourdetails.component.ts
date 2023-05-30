@@ -35,15 +35,16 @@ import { ReviewsComponent } from "../reviews/reviews.component";
               <section class="listing-features">
                 <h2 class="section-heading">About this tour location</h2>
                 <ul>
+                  <li><h4>Description : {{ tourLocation?.description }}</h4></li>
                   <li>Seats Available: {{ tourLocation?.availableseats }}</li>
                   <li>Duration: {{ tourLocation?.duration }}</li>
                   <li>
-                    When does the tour start: {{ tourLocation?.beginDate }}
+                    When does the tour start: {{ tourLocation?.begindate }}
                   </li>
                   <li>Price: {{ tourLocation?.price }} PP</li>
                   <li>Difficulty : {{ tourLocation?.difficulty }}</li>
 
-                  <li>Desciption : {{ tourLocation?.discription }}</li>
+
                   <br />
                   <form [formGroup]="toursDetails">
                     <label for="first-name">No of People</label>
@@ -57,7 +58,7 @@ import { ReviewsComponent } from "../reviews/reviews.component";
                     <button
                       type="submit"
                       class="primary"
-                      (click)="submitBooking()"
+                      ng *ngIf(display()) (click)="submitBooking()"
                     >
                       Book now
                     </button>
@@ -89,19 +90,31 @@ export class TourdetailsComponent {
     groupSize: new FormControl(''),
   });
   //flag : boolean = false
-  display(flag: boolean): boolean | undefined {
-    return flag;
+  display(flag: boolean): boolean {
+    let date =  this.tourLocation?.begindate || new Date()
+    if (new Date() >= date)
+    return false;
+
+    return true;
+
   }
+
 
   submitBooking() {
     let count = parseInt(this.toursDetails.value.groupSize ?? ' ');
     let availSeats: number | undefined;
     const tourLocationId = parseInt(this.route.snapshot.params['id'], 10);
 
+
+    if(this.token ==null){
+     this.router.navigate(['/login'])
+     return
+    }
+
     if (typeof this.tourLocation == undefined) availSeats = 0;
     else availSeats = this.tourLocation?.availableseats;
     if (availSeats != undefined && availSeats < count) {
-      console.log(count + '  ' + availSeats);
+      // console.log(count + '  ' + availSeats);
       this.error = true;
       return;
       /*this.display(true);
@@ -109,8 +122,10 @@ export class TourdetailsComponent {
     } else {
       this.error = false;
       // this.display(false)
+     const price = this.tourLocation?.price || 0
+      this.tourService.submitApplication(count,tourLocationId,0,new Date());
+      this.router.navigate([`/details/${tourLocationId}`])
 
-      this.tourService.submitApplication(count,tourLocationId);
 
     }
   }
@@ -120,12 +135,12 @@ export class TourdetailsComponent {
     this.tourService
       .getTourLocationById(tourLocationId)
       .then((tourLocationId) => {
-        console.log(tourLocationId);
+        // console.log(tourLocationId);
 
         this.tourLocation = tourLocationId;
       });
-      this.token = localStorage.getItem('token')??"";
-      if(this.token == null)
-       this.router.navigate(['/login'])
+      this.token = localStorage.getItem('token');
+      // console.log(this.token);
+
   }
 }
