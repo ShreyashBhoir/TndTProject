@@ -60,7 +60,7 @@ public class Tour {
 
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "tour")
+	@OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
 	private List<Booking> booking;
 
 

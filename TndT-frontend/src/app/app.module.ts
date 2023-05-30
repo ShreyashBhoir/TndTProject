@@ -31,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DeletebookingComponent } from './deletebooking/deletebooking.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     ContactUsComponent,
     UserBookingsComponent,
     UserUpdateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DeletebookingComponent
   ],
   imports: [
     BrowserModule,

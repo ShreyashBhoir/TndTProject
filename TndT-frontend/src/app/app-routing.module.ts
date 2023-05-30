@@ -11,7 +11,9 @@ import { TourdetailsComponent } from './tour/tourdetails/tourdetails.component';
 import { UserComponent } from './user/user.component';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DeletebookingComponent } from './deletebooking/deletebooking.component';
 
 const routes: Routes = [
   {path:"about-us",component:AboutUsComponent,title:"about-us"},
@@ -26,6 +28,9 @@ const routes: Routes = [
   {path:"user",component:UserComponent,title:"user"},
   {path:"user/bookings",component:UserBookingsComponent,title:"bookings"},
   {path:"user/settings",component:UserUpdateComponent,title:"settings"},
+  {
+    path:"user/bookings/delete/:id",component:DeletebookingComponent
+  },
   {path:"**",component:PageNotFoundComponent,title:"page not found"}
 ];
 

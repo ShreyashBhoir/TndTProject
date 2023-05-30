@@ -249,10 +249,12 @@ public class UserController {
 		else
 		{
 			 Tour tour=booking.getTour();
-			long milliseconds=tour.getBegindate().getTime()-booking.getBookingdate().getTime();
-			long days = milliseconds / (1000*60*60 * 24);
+			long milliseconds=Math.abs(tour.getBegindate().getTime()-booking.getBookingdate().getTime());
+			double days = Math.ceil(milliseconds/(1000*60*60 * 24));
+			System.out.println("###################"+days);
 			if(days>=15) 
 			{
+				System.out.println("true %%%%%%%%%%%%%%%%%%%%%%%");
          //userservice.deleteBookingById(bid);
         booking.setStatus(Bstatus.CANCELLED);
       
@@ -263,10 +265,12 @@ public class UserController {
          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 			else {
+				System.out.println("I am bad request");
 				 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
 	}
+	
 	
 	@GetMapping("/getbookinghistory")
 	public ResponseEntity<List<Booking>> getAllBookings(HttpServletRequest req)

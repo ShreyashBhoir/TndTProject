@@ -40,7 +40,7 @@ endDate: Date=new Date('0000-01-01');
   {
     console.log("I am delete")
 
-    this.router.navigate(["/user/bookings/delete",booking.bookingid]);
+    this.router.navigate([`/user/bookings/delete/${booking.bookingid}`]);
     
 }
 
