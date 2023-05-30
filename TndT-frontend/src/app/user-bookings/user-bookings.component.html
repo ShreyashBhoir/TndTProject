@@ -26,7 +26,7 @@
         </ng-template>
   
         <td *ngIf="booking.tour.istouractive && calculateDateDifference(booking) ; else elseBlock1">
-          <button (click)="deleteBooking(booking)">Delete Booking</button>
+          <button (click)="deleteBooking(booking)" class="btn btn-danger">Delete Booking</button>
         </td>
         <ng-template #elseBlock1>
           <td>NaN</td>
@@ -40,3 +40,5 @@
   
   <button (click)="back()"  class="button">Back</button>
   <router-outlet></router-outlet>
+
+  <!-- && calculateDateDifference(booking),,,, booking.tour.istouractive-->

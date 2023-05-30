@@ -28,8 +28,8 @@ endDate: Date=new Date('0000-01-01');
 
   ngOnInit(): void 
   {
-    const jwtToken = this.userService.getJwtTokenFromLocalStorage();
-    const token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYXlhbmo2NTFAZ21haWwuY29tIiwiaWF0IjoxNjg1MzQwNzE1LCJleHAiOjE2ODUzNTg3MTV9.PPBiRP17EsEVR9mQMit4I_7UH5WR5f88e0mEXHmTcZA"
+    
+    
    this.bookingService.retrieveBookings().subscribe(data=>this.bookings=data);
    
   
@@ -46,11 +46,11 @@ endDate: Date=new Date('0000-01-01');
 
 calculateDateDifference(booking:Booking): boolean {
  
-  const diffInTime = new Date(booking.tour.begindate).getTime()-  new Date( booking.bookingdate).getTime();
+  const diffInTime = Math.abs(new Date(booking.tour.begindate).getTime()-new Date( booking.bookingdate).getTime());
 
   console.log(diffInTime)
-  const diffInDays = diffInTime/(1000 * 3600 * 24);
- 
+  const diffInDays = Math.ceil(diffInTime/(1000 * 3600 * 24));
+ console.log(diffInDays)
   if(diffInDays>=15)
   {  return true
   }
