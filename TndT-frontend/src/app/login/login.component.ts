@@ -49,6 +49,8 @@ export class LoginComponent {
         localStorage.setItem("roles",this.jwt.roles);
         localStorage.setItem("token",this.jwt.token);
         this.errorMessage=null;
+        alert("USER SUCCESSFULLY LOGGED IN!!!");
+        this.router.navigate(['/home']);
         //this.errorMessages=null;
         //localStorage.setItem("token",);
        },(err:any)=>{

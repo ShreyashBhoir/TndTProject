@@ -43,6 +43,7 @@ export class RegisterComponent {
         this.userdata.saveusers(this.registerform.value).subscribe((result:any)=>{
          console.log(result); 
          this.errorMessage=null;
+         alert("USER SUCCESSFULLY REGISTERED AND EMAIL HAS BEEN SEND!!!");
         },(err:any)=>{
             this.errorMessage="USER ALREADY EXISTS";
         })
