@@ -46,7 +46,7 @@ export class ReviewsComponent {
       this.router.navigate(['/login'])
       return
       }
-    console.log(text);
+    // console.log(text);
 
     localStorage.getItem('token');
   }
@@ -55,7 +55,7 @@ export class ReviewsComponent {
     let reviewId = parseInt(this.route.snapshot.params['id'], 10);
 
     this.reviewService.getAllReviewByTour(reviewId).then(reviewList=>{
-      console.log(reviewList);
+      // console.log(reviewList);
 
       this.reviewList = reviewList;
 

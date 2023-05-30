@@ -23,7 +23,7 @@ export class TourService {
     return await data.json()??[];
   }
 
- async getTourLocationById(id: number):Promise<TourLocation | undefined> {
+ async getTourLocationById(id: number):Promise<TourLocation > {
     const data = await fetch(`${this.url}admin/getTourById/${id}`);
     return await data.json() ?? {};  }
 

@@ -21,28 +21,28 @@ import { ReviewsComponent } from "../reviews/reviews.component";
                 <img
                   class="img-fluid "
                   id="tourimg"
-                  [src]="tourLocation?.imageurl"
-                  alt="Exterior photo of {{ tourLocation?.name }}"
+                  [src]="tourLocation.imageurl"
+                  alt="Exterior photo of {{ tourLocation.name }}"
                 />
               </article>
             </div>
             <div class="col-md-6">
               <section class="listing-description">
-                <h2 class="listing-heading">{{ tourLocation?.name }}</h2>
+                <h2 class="listing-heading">{{ tourLocation.name }}</h2>
                 <img src="./assets/location-pin.svg" />
-                <p class="listing-location">{{ tourLocation?.location }}, IN</p>
+                <p class="listing-location">{{ tourLocation.location }}, IN</p>
               </section>
               <section class="listing-features">
                 <h2 class="section-heading">About this tour location</h2>
                 <ul>
-                  <li><h4>Description : {{ tourLocation?.description }}</h4></li>
-                  <li>Seats Available: {{ tourLocation?.availableseats }}</li>
-                  <li>Duration: {{ tourLocation?.duration }}</li>
+                  <li><h4>Description : {{ tourLocation.description }}</h4></li>
+                  <li>Seats Available: {{ tourLocation.availableseats }}</li>
+                  <li>Duration: {{ tourLocation.duration }}</li>
                   <li>
-                    When does the tour start: {{ tourLocation?.begindate }}
+                    When does the tour start: {{ tourLocation.begindate }}
                   </li>
-                  <li>Price: {{ tourLocation?.price }} PP</li>
-                  <li>Difficulty : {{ tourLocation?.difficulty }}</li>
+                  <li>Price: {{ tourLocation.price }} PP</li>
+                  <li>Difficulty : {{ tourLocation.difficulty }}</li>
 
 
                   <br />
@@ -84,22 +84,43 @@ export class TourdetailsComponent {
   token :string |null ;
 
   tourService: TourService = inject(TourService);
-  tourLocation: TourLocation | undefined;
+  tourLocation: TourLocation = {
+    tourid: 0,
+    name: "",
+    location: "",
+    duration: 0,
+    availableseats: 0,
+    difficulty:"",
+    avgRating: 0,
+    price: 0,
+    description: "",
+    begindate: new Date(),
+    imageurl: "",
+    isActive :false,
+  };
 
   toursDetails = new FormGroup({
     groupSize: new FormControl(''),
   });
   //flag : boolean = false
   display(): boolean {
-    let date =  this.tourLocation?.begindate || new Date()
+    let date =  this.tourLocation.begindate ;
+    //console.log(new Date().toDateString());
+    //console.log(date.toDateString());
+    console.log("---------------");
     console.log(new Date());
     console.log(date);
     
-    if (new Date() > date)
-    return false;
-    else
+    console.log(new Date() > date)
+    console.log("-------XX--------");
+    
+    if (new Date() > date ){
+      return false;
+    }
+    else{
+    
     return true;
-
+    }
   }
 
 
@@ -137,13 +158,13 @@ export class TourdetailsComponent {
     const tourLocationId = parseInt(this.route.snapshot.params['id'], 10);
     this.tourService
       .getTourLocationById(tourLocationId)
-      .then((tourLocationId) => {
+      .then((t) => {
         // console.log(tourLocationId);
-
-        this.tourLocation = tourLocationId;
+        this.tourLocation = t;
       });
       this.token = localStorage.getItem('token');
       // console.log(this.token);
-
   }
+
+  
 }

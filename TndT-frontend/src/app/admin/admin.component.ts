@@ -179,16 +179,16 @@ export class AdminComponent {
         
         this.allReviews = allReviews;
         /*TEST*/
-        this.allReviews = [
-          {reviewid:1,review:"review text",rating:3,
-          dateofcreation:new Date(),tourid:10,userid:5},
-          {reviewid:1,review:"review text",rating:3,
-          dateofcreation:new Date(),tourid:10,userid:5},
-          {reviewid:1,review:"review text",rating:3,
-          dateofcreation:new Date(),tourid:10,userid:5},
-          {reviewid:1,review:"review text",rating:3,
-          dateofcreation:new Date(),tourid:10,userid:5}
-        ] 
+        // this.allReviews = [
+        //   {reviewid:1,review:"review text",rating:3,
+        //   dateofcreation:new Date(),tourid:10,userid:5},
+        //   {reviewid:1,review:"review text",rating:3,
+        //   dateofcreation:new Date(),tourid:10,userid:5},
+        //   {reviewid:1,review:"review text",rating:3,
+        //   dateofcreation:new Date(),tourid:10,userid:5},
+        //   {reviewid:1,review:"review text",rating:3,
+        //   dateofcreation:new Date(),tourid:10,userid:5}
+        // ] 
       }
     ).catch(
       (error)=>{
