@@ -16,11 +16,11 @@
         <!--Top rated Tours-->
         <div class="container bg-light rounded mt-5 p-3">
             <div class="h3 text-warning fw-bolder">Top Rated Tours : </div>
-            <div class="row" *ngFor="let t of topTours">
+            <div class="row">
                 <!--CARD-->
-                <div class="col">
+                <div class="col"  *ngFor="let t of topTours">
                     <div class="card mt-2 col" style="width: 18rem;">
-                        <img src="{{t.imageurl}}" class="card-img-top" alt="Exterior image">
+                        <img src="{{t.imageurl}}"  style="height: 250px;" class="card-img-top img-fluid" id="source" alt="Exterior image {{t.location}}">
                         <div class="card-body">
                          <img src="./assets/location-pin.svg"> <h5 class="card-title">{{t.name}}</h5>
                           <p class="card-text">{{t.location}}</p>
@@ -31,7 +31,7 @@
     
             </div>
             <div class="d-flex justify-content-end mt-3">
-                <a routerLink="/tour" class="btn btn-sml btn-primary">See All</a>
+                <a routerLink="/tour" class="btn btn-sml btn-primary">See All <i class="bi bi-arrow-right"></i> </a>
             </div>
         </div>
     

@@ -103,7 +103,8 @@ export class AdminComponent {
       (error:Error)=>{
         //ToDo
         alert("SERVER ERROR. TRY AGAIN LATER.");
-        this._router.navigate(['/']);
+        this.logoutUser();
+        return;
       }
     );
   

@@ -58,7 +58,7 @@ import { ReviewsComponent } from "../reviews/reviews.component";
                     <button
                       type="submit"
                       class="primary"
-                      ng *ngIf(display()) (click)="submitBooking()"
+                       *ngIf="display()" (click)="submitBooking()"
                     >
                       Book now
                     </button>
@@ -90,11 +90,14 @@ export class TourdetailsComponent {
     groupSize: new FormControl(''),
   });
   //flag : boolean = false
-  display(flag: boolean): boolean {
+  display(): boolean {
     let date =  this.tourLocation?.begindate || new Date()
-    if (new Date() >= date)
+    console.log(new Date());
+    console.log(date);
+    
+    if (new Date() > date)
     return false;
-
+    else
     return true;
 
   }
