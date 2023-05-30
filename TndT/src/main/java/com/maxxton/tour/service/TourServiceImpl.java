@@ -54,6 +54,12 @@ public class TourServiceImpl implements TourService {
 		
 		return tourRepo.findAll();
 	}
+	
+	@Override
+	public List<Tour> getTopTours() {
+		
+		return tourRepo.getTopTours();
+	}
 
 
 	@Override

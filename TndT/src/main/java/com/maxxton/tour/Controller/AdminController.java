@@ -79,6 +79,16 @@ public class AdminController {
 		return  new ResponseEntity<List<Tour>>(tours, HttpStatus.ACCEPTED);
 	}
 	
+	@GetMapping("/getTopTours")
+	public  ResponseEntity<List<Tour>> getTopTours()
+	{
+		List<Tour> tours=tourService.getTopTours();
+		List<TourDTO> toursDtoList = new ArrayList<>();
+		tours.forEach((e)->{toursDtoList.add(new TourDTO(e));});
+		
+		return  new ResponseEntity<List<Tour>>(tours, HttpStatus.ACCEPTED);
+	}
+	
 	//get tour by id
 	@GetMapping("/getTourById/{id}")
 	public  ResponseEntity<Tour>getAllTours(@PathVariable int id)
@@ -137,7 +147,9 @@ public class AdminController {
 	@GetMapping("/getUsers")
 	public ResponseEntity<List<User>> getUsers(){
 		//List<User> userList = userService.getAllUsers();
-		return new ResponseEntity<List<User>>(userService.getAllUsers(),HttpStatus.OK);
+		List<User> userList = userService.getAllUsers();
+		//userList.remove(userList)
+		return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getAdminDetails")
@@ -169,6 +181,28 @@ public class AdminController {
 				return new ResponseEntity<String>(new String("done"),HttpStatus.OK);
 			else
 				return new ResponseEntity<String>("Operation failed",HttpStatus.BAD_REQUEST);
+		}
+	
+	//enable user
+	@PatchMapping("/enableUser/{id}")
+	public ResponseEntity<String> enableUser(@PathVariable int id){
+		if(userService.changeEnableStatus(id,true)) {
+			return new ResponseEntity<String>(new String("done"),HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<String>("operation failed",HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	//disable user
+		@PatchMapping("/disableUser/{id}")
+		public ResponseEntity<String> disableUser(@PathVariable int id){
+			if(userService.changeEnableStatus(id,false)) {
+				return new ResponseEntity<String>(new String("done"),HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<String>("operation failed",HttpStatus.BAD_REQUEST);
+			}
 		}
 	
 	//getting all bookings

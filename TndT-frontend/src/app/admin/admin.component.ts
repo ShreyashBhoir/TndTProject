@@ -4,6 +4,9 @@ import { BookingEntity } from './Entities/BookingEntity';
 import { AdminEntity } from './Entities/AdminDetailsEntity';
 import { TourEntity } from './Entities/TourEntity';
 import { UserEntity } from './Entities/UserEntity';
+import { Review } from '../interfaces/review';
+import { ReviewService } from '../services/tours-services/review.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -41,13 +44,7 @@ import { UserEntity } from './Entities/UserEntity';
 
 export class AdminComponent {
   
-  public adminInitials ="SJ";
-  // public adminId = "01";
-  // public adminName="Sanket Jadhav"
-  // public adminUserName="Sanketjadhavmes";
-  // public adminMobileNumber="9969131748";
-  // public adminEmailId = "sanketjadhavmes@gmail.com";
-
+  public adminInitials ="";
   public showStats:boolean = true;
   public showTours:boolean = false;
   public showReviews:boolean = false;
@@ -68,19 +65,32 @@ export class AdminComponent {
   allUsers:UserEntity[]=[]
   allBookingStats:BookingEntity[]=[]
   allTours:TourEntity[]=[]
+  allReviews:Review[]=[]
 
-  constructor(private _adminService:AdminService){}
+  constructor(private _router:Router,private _adminService:AdminService,private _reviewService:ReviewService){}
 
   logoutUser(){
-  
+    localStorage.clear();
+    this._router.navigate(['/login'])
+  }
+
+  public isUserIdThisId(id:number){
+    return this.admin.userId===id;
   }
 
   ngOnInit(){
+
+    if(localStorage.getItem("token") === null || localStorage.getItem("roles")===null){
+      alert("Invalid session. Please login again")
+      this.logoutUser();
+      return;
+    }
+
     this.getAllBookingStats();
     this.populateAdminDetails();
     this.getAllTours();
     this.getAllUsers();
-    //this.getAllReviews();
+    this.getAllReviews();
   }
 
   populateAdminDetails(){
@@ -92,6 +102,8 @@ export class AdminComponent {
       },
       (error:Error)=>{
         //ToDo
+        alert("SERVER ERROR. TRY AGAIN LATER.");
+        this._router.navigate(['/']);
       }
     );
   
@@ -132,7 +144,7 @@ export class AdminComponent {
         this.allBookingStats = data;
       },
       (error:Error)=>{
-        //ToDo
+        alert("Error fetching Booking details. try again later")
       }
     );
   }
@@ -144,7 +156,7 @@ export class AdminComponent {
         this.allTours = data;
       },
       (error:Error)=>{
-        //ToDo
+        alert("Error fetching Tour details. try again later")
       }
     );
   }
@@ -155,13 +167,50 @@ export class AdminComponent {
         this.allUsers = data;
       },
       (error:Error)=>{
-        //ToDo
+        alert("Error fetching user details. try again later")
+      }
+    );
+  }
+  public getAllReviews(){
+    this._reviewService.getAllReviews().then(
+      (allReviews:Review[])=>{
+        console.log(allReviews);
+        
+        this.allReviews = allReviews;
+        /*TEST*/
+        this.allReviews = [
+          {reviewid:1,review:"review text",rating:3,
+          dateofcreation:new Date(),tourid:10,userid:5},
+          {reviewid:1,review:"review text",rating:3,
+          dateofcreation:new Date(),tourid:10,userid:5},
+          {reviewid:1,review:"review text",rating:3,
+          dateofcreation:new Date(),tourid:10,userid:5},
+          {reviewid:1,review:"review text",rating:3,
+          dateofcreation:new Date(),tourid:10,userid:5}
+        ] 
+      }
+    ).catch(
+      (error)=>{
+        alert("Error fetching Review details. try again later")
       }
     );
   }
 
   public changeActiveStatus(newStatus:boolean,forUser:number){
+    this._adminService.changeStatus(newStatus,forUser).subscribe(
+      (resp)=>{ 
+        console.log(resp)
+        //window.location.reload(); 
+        this.getAllUsers();
+      },
+      (error)=>{ 
+        //alert("OPERATION FAILED! TRY AFTER SOMETIME.");
+        console.log(error);
+        this.getAllUsers();
 
+        //window.location.reload(); 
+      }
+    )
   }
 
   public changeAdminStatus(newStatus:boolean,forUser:number){
@@ -180,4 +229,6 @@ export class AdminComponent {
       }
     )
   }
+
+ 
 }

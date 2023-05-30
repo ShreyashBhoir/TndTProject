@@ -113,6 +113,28 @@ public class UserServiceImpl implements UserService {
 		return true;	/*Updated*/
 	}
 	
+	//
+	public boolean changeEnableStatus(int userId,boolean activeStatus) {
+		//try to get ref to entity to update
+		Optional<User> userToUpdateOptional = userRepo.findById(userId);
+		/*if no one present with id, Give null*/
+		if(!userToUpdateOptional.isPresent()) {
+			return false;
+		}
+		//get actual object
+		User userToUpdate = userToUpdateOptional.get();
+		//update its activeStatus
+		if(userToUpdate.getRoles()=="ROLE_ADMIN") {
+			return false;
+		}
+		
+		userToUpdate.setIsActive(activeStatus);;
+		//save updated entity to db
+		System.out.println(userToUpdate.getIsActive());
+		userRepo.save(userToUpdate);
+		return true;	/*Updated*/
+	}
+	
 	/*STATS*/
 	public List<Booking> getStatsForYear(int year){
 		List<Booking> stats;

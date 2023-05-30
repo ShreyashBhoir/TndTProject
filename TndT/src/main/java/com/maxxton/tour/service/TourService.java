@@ -17,5 +17,7 @@ public interface TourService {
 	
 	public Tour deleteTour(int id);
 
+	public List<Tour> getTopTours();
+
 	
 }

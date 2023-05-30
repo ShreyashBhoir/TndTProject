@@ -4,7 +4,7 @@
         <div class="bg-light rounded container p-3">
             <!--logout button-->
             <div class="d-flex justify-content-end ">  
-                <button (click)="logoutUser()" class="btn btn-danger" routerLink="/logout">
+                <button (click)="logoutUser()" class="btn btn-danger" >
                     <i class="bi bi-box-arrow-right"></i> 
                     Logout
                 </button> 
@@ -100,6 +100,16 @@
                 <!--reviews-->
                 <div *ngIf="showReviews" >
                     <h3>Reviews</h3>
+                    <div *ngFor="let r of allReviews">
+                        <div class="card m-2 p-2">
+                            <div class="d-flex justify-content-end">{{r.dateofcreation}}</div>
+                            <div><i class=" bi bi-star-fill text-warning h4"></i> <span class="h4">{{r.rating}}</span> <span class="h6">/5</span></div>
+                            <div class="h4 ps-3">Tour Id : {{r.tourid}}</div>
+                            <p class="ps-3">{{r.review}}</p>
+                        </div>
+
+                    </div>
+    
                 </div>
                 <!--reviews-->
                 <div *ngIf="showAdminControl" >
@@ -119,7 +129,6 @@
                         <tbody>
                             
                             <tr *ngFor="let u of allUsers">
-                                <div *ngIf="u.userId!=admin.userId"> </div>
                                 <td>{{u.userId}}</td>
                                 <td>{{u.userName}}</td>
                                 <td>{{u.firstname}} {{u.lastname}}</td>
@@ -128,13 +137,13 @@
                                 <td>{{u.roles}}</td>
                                 <td> 
                                     <div *ngIf="u.isActive; then thenActiveBlock else elseActiveBlock" class="btn btn-"></div> 
-                                    <ng-template #thenActiveBlock> <button (click)="changeActiveStatus(true,u.userId)" class="btn btn-success">ENABLE</button> </ng-template>
-                                    <ng-template #elseActiveBlock> <button (click)="changeActiveStatus(false,u.userId)" class="btn btn-danger">DISABLE</button> </ng-template>
+                                    <ng-template #thenActiveBlock> <button [disabled]="isUserIdThisId(u.userId)" (click)="changeActiveStatus(false,u.userId)" class="btn btn-danger">DISABLE USER</button> </ng-template>
+                                    <ng-template #elseActiveBlock> <button [disabled]="isUserIdThisId(u.userId)" (click)="changeActiveStatus(true,u.userId)" class="btn btn-success">ENABLE USER</button> </ng-template>
                                 </td>
                                 <td> 
                                     <div *ngIf="u.roles=='ROLE_USER'; then thenAdminBlock else elseAdminBlock" class="btn btn-"></div> 
-                                    <ng-template #thenAdminBlock> <button (click)="changeAdminStatus(true,u.userId)" class="btn btn-primary">MAKE ADMIN</button> </ng-template>
-                                    <ng-template #elseAdminBlock> <button (click)="changeAdminStatus(false,u.userId)" class="btn btn-link">MAKE USER</button> </ng-template>
+                                    <ng-template #thenAdminBlock> <button [disabled]="isUserIdThisId(u.userId)" (click)="changeAdminStatus(true,u.userId)" class="btn btn-primary">MAKE ADMIN</button> </ng-template>
+                                    <ng-template #elseAdminBlock> <button [disabled]="isUserIdThisId(u.userId)" (click)="changeAdminStatus(false,u.userId)" class="btn btn-link">MAKE USER</button> </ng-template>
                                 </td>
                             </tr>
                         </tbody>

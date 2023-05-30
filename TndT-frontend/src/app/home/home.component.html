@@ -16,35 +16,15 @@
         <!--Top rated Tours-->
         <div class="container bg-light rounded mt-5 p-3">
             <div class="h3 text-warning fw-bolder">Top Rated Tours : </div>
-            <div class="row">
+            <div class="row" *ngFor="let t of topTours">
                 <!--CARD-->
                 <div class="col">
                     <div class="card mt-2 col" style="width: 18rem;">
-                        <img [src]="" class="card-img-top" alt="Exterior image">
+                        <img src="{{t.imageurl}}" class="card-img-top" alt="Exterior image">
                         <div class="card-body">
-                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
-                          <p class="card-text">lOCATION</p>
-                          <a [routerLink]="['/details', 1]">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mt-2 col" style="width: 18rem;">
-                        <img [src]="" class="card-img-top" alt="Exterior image">
-                        <div class="card-body">
-                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
-                          <p class="card-text">lOCATION</p>
-                          <a [routerLink]="['/details', 1]">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mt-2 col" style="width: 18rem;">
-                        <img [src]="" class="card-img-top" alt="Exterior image">
-                        <div class="card-body">
-                         <img src="./assets/location-pin.svg"> <h5 class="card-title">CARD tITLE,IN</h5>
-                          <p class="card-text">lOCATION</p>
-                          <a [routerLink]="['/details', 1]">Learn More</a>
+                         <img src="./assets/location-pin.svg"> <h5 class="card-title">{{t.name}}</h5>
+                          <p class="card-text">{{t.location}}</p>
+                          <a [routerLink]="['/details', t.tourid]">Learn More</a>
                         </div>
                     </div>
                 </div>

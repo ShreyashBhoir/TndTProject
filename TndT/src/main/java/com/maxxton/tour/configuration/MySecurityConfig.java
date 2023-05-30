@@ -52,6 +52,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     			.antMatchers(HttpMethod.PUT,"/user/user/booking/updateBooking/groupsize/**").hasAnyRole(ADMIN, USER)
     			.antMatchers(HttpMethod.DELETE,"/user/user/booking/deleteBooking/**").hasAnyRole(ADMIN, USER)
     			.antMatchers("/user/admin/getTours").permitAll()
+    			.antMatchers("/user/admin/getTopTours").permitAll()
     			.antMatchers("/user/admin/getTourById/{id}").permitAll()
     			.antMatchers("/review/**").permitAll()
     			.antMatchers(HttpMethod.POST,"/review/addReview/{tourid}").hasAnyRole(ADMIN, USER)

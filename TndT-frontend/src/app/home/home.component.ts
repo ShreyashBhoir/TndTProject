@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HomeService } from '../services/home-services/home.service';
+import { TourEntity } from '../admin/Entities/TourEntity';
+import { TourLocation } from '../interfaces/tour-location';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +19,7 @@ import { Component } from '@angular/core';
       }
       .listing-photo {
         height: 250px;
-        width: 100%;
+        width: 250px;
         object-fit: cover;
         border-radius: 30px 30px 0 0;
       }
@@ -26,7 +29,7 @@ import { Component } from '@angular/core';
       .listing-location::before {
         content: url("/assets/location-pin.svg") / "";
       }
-      
+
       section.listing a {
         padding-left: 20px;
         text-decoration: none;
@@ -36,10 +39,21 @@ import { Component } from '@angular/core';
         content: "\203A";
         margin-left: 5px;
       }
+
+
   `]
 })
 export class HomeComponent {
 
   bannerImage = "/assets/banner.png";
+  topTours:TourLocation[]=[]
 
+  constructor(private _homeService:HomeService){}
+
+  ngOnInit(){
+    this._homeService.getTopTours().subscribe(
+      (data:TourLocation[])=>{this.topTours=data.slice(0,3)},
+      (error)=>{alert("SERVER ERROR: PLEASE TRY AGAIN AFTER SOMETIME")}
+    )
+  }
 }
